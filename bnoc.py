@@ -354,8 +354,8 @@ class bnoc(object):
 				f.write(edgelist)
 
 		if self.options.show_timing: self.timing.print_tabular()
-		if self.options.save_timing_csv: self.timing.save_csv(output)
-		if self.options.save_timing_json: self.timing.save_json(output)
+		if self.options.save_timing_csv: self.timing.save_csv(output + '-timing.csv')
+		if self.options.save_timing_json: self.timing.save_json(output + '-timing.csv')
 
 def main():
 	""" Main entry point for the application when run from the command line. """
