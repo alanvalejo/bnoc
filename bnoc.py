@@ -40,7 +40,6 @@ import copy
 import logging
 import json
 import time
-import ast
 
 from timing import Timing
 from datetime import datetime
@@ -55,7 +54,7 @@ __docformat__ = 'markdown en'
 __version__ = '0.1'
 __date__ = '2017-10-01'
 
-def make_bipartite(vertices, communities, x, y, z, p1, p2, balanced, dispersion, mu):
+def make_bipartite(vertices, communities, x, y, z, p1, p2, balanced, dispersion, mu, normalize):
 	""" Create a unweighted bipartite network with community structure.
 
 	Args:
@@ -133,7 +132,7 @@ def make_bipartite(vertices, communities, x, y, z, p1, p2, balanced, dispersion,
 				cover_col[comm].append(vertex)
 
 	# Create a empty biparte
-	matrix = numpy.zeros((vertices[0], vertices[1]), dtype=numpy.int)
+	matrix = numpy.zeros((vertices[0], vertices[1]), dtype=numpy.float64)
 
 	# Connect all vertices in each module
 	for comm in unique_comms:
@@ -144,8 +143,12 @@ def make_bipartite(vertices, communities, x, y, z, p1, p2, balanced, dispersion,
 	# Make a large negative binomial distribution
 	num_samples = numpy.count_nonzero(matrix)
 	prob = dispersion / (dispersion + mu)
-	matrix[matrix > 0] = numpy.random.negative_binomial(dispersion, prob, num_samples)
-
+	# from scipy.stats import nbinom
+	# distribution = nbinom.rvs(dispersion, prob, size=num_samples)
+	distribution = numpy.random.negative_binomial(dispersion, prob, num_samples)
+	if normalize:
+		distribution = distribution / numpy.linalg.norm(distribution)
+	matrix[matrix > 0] = distribution
 	model = bipartite(matrix=matrix, cover_row=cover_row, cover_col=cover_col, overlap_row=overlap_row, overlap_col=overlap_col)
 
 	return model
@@ -189,14 +192,14 @@ class bipartite:
 	def __init__(self, **kwargs):
 		self.__dict__.update(kwargs)
 
-# BNOC class
+# BNOC app
 class bnoc(object):
 
 	def __init__(self):
-		"""
-		Usage: %prog [options] input_file
-		Runs a hierarchical link clustering on the given graph according
-		to the method of Ahn et al.
+		""" Initialize the bnoc app
+
+		For help use:
+			> python bnoc.py --help
 		"""
 
 		description = 'BNOC (Benchmarking weighted bipartite network with overlapping community structures).'
@@ -218,6 +221,7 @@ class bnoc(object):
 		self.optional.add_argument('-p2', '--probabilities_2', dest='p2', action='store', default=None, nargs='+', type=float, metavar='float', help='probability of vertices in each community for layer 2')
 		self.optional.add_argument('-b', '--balanced', dest='balanced', action='store_true', default=False, help='boolean balancing flag that suppresses -p parameter (default: %(default)s)')
 		self.optional.add_argument('-u', '--unweighted', dest='unweighted', action='store_true', default=False, help='Unweighted networks (default: %(default)s)')
+		self.optional.add_argument('-no', '--normalize', dest='normalize', action='store_true', default=False, help='Scale input vectors individually to unit norm (vector length) (default: %(default)s)')
 		self.optional.add_argument('-cf', '--conf', dest='conf', action='store', type=str, metavar='FILE', default=None, help='name of the %(metavar)s to be loaded')
 		self.optional.add_argument('-st', '--show_timing', dest='show_timing', action='store_true', default=False, help='show timing (default: %(default)s)')
 		self.optional.add_argument('-stc', '--save_timing_csv', dest='save_timing_csv', action='store_true', default=False, help='save timing in csv (default: %(default)s)')
@@ -231,83 +235,84 @@ class bnoc(object):
 	def run(self):
 		""" Runs the application. """
 
-		self.options = self.parser.parse_args()
-		level = logging.WARNING
-		logging.basicConfig(level=level, format="%(message)s")
+		with self.timing.timeit_context_add('Pre-processing'):
+			self.options = self.parser.parse_args()
+			level = logging.WARNING
+			logging.basicConfig(level=level, format="%(message)s")
 
-		if self.options.conf:
-			json_dict = json.load(open(self.options.conf))
-			argparse_dict = vars(self.options)
-			argparse_dict.update(json_dict)
-			for k in self.options.__dict__:
-				if self.options.__dict__[k] in ['True', 'False', 'None']:
-					self.options.__dict__[k] = ast.literal_eval(self.options.__dict__[k])
+			if self.options.conf:
+				json_dict = json.load(open(self.options.conf))
+				argparse_dict = vars(self.options)
+				argparse_dict.update(json_dict)
 
-		if self.options.directory is None:
-			self.options.directory = os.path.dirname(os.path.abspath(__file__))
-		else:
-			if not os.path.exists(self.options.directory): os.makedirs(self.options.directory)
-		if not self.options.directory.endswith('/'): self.options.directory += '/'
-		if self.options.output is None:
-			self.options.output = 'bipartite_network'
-		if self.options.unique_key:
-			now = datetime.now()
-			options.output = options.output + '_' + now.strftime('%Y%m%d%H%M%S%f')
+			if self.options.directory is None:
+				self.options.directory = os.path.dirname(os.path.abspath(__file__))
+			else:
+				if not os.path.exists(self.options.directory): os.makedirs(self.options.directory)
+			if not self.options.directory.endswith('/'): self.options.directory += '/'
+			if self.options.output is None:
+				self.options.output = 'bipartite_network'
+			if self.options.unique_key:
+				now = datetime.now()
+				options.output = options.output + '_' + now.strftime('%Y%m%d%H%M%S%f')
 
-		if (self.options.p1 is None) and (self.options.p2 is not None):
-			self.options.p1 = self.options.p2
-		elif (self.options.p1 is not None) and (self.options.p2 is None):
-			self.options.p2 = self.options.p1
+			if (self.options.p1 is None) and (self.options.p2 is not None):
+				self.options.p1 = self.options.p2
+			elif (self.options.p1 is not None) and (self.options.p2 is None):
+				self.options.p2 = self.options.p1
 
-		if sum(self.options.p1) != 1:
-			self.log.warning('The sum of probabilities p1 must be equal to 1')
-			sys.exit(1)
-		if sum(self.options.p1) != 1:
-			self.log.warning('The sum of probabilities p2 must be equal to 1')
-			sys.exit(1)
+			if sum(self.options.p1) != 1:
+				self.log.warning('The sum of probabilities p1 must be equal to 1')
+				sys.exit(1)
+			if sum(self.options.p1) != 1:
+				self.log.warning('The sum of probabilities p2 must be equal to 1')
+				sys.exit(1)
 
-		if self.options.communities > (self.options.vertices[0] + self.options.vertices[1]):
-			self.log.warning('The number of communities must be less than the number of vertices')
-			sys.exit(1)
-		if self.options.z > self.options.communities:
-			self.log.warning('Number of vertices of overlapping communities must be less than the number of communities')
-			sys.exit(1)
-		if (self.options.x or self.options.y) and (self.options.z is None):
-			self.options.z = 2
+			if self.options.communities > (self.options.vertices[0] + self.options.vertices[1]):
+				self.log.warning('The number of communities must be less than the number of vertices')
+				sys.exit(1)
+			if self.options.z > self.options.communities:
+				self.log.warning('Number of vertices of overlapping communities must be less than the number of communities')
+				sys.exit(1)
+			if (self.options.x or self.options.y) and (self.options.z is None):
+				self.options.z = 2
 
 		# Graph construction
 		with self.timing.timeit_context_add('BNOC'):
 			# Create a unweighted bipartite network with fully connected communities
-			model = make_bipartite(self.options.vertices, self.options.communities, self.options.x, self.options.y, self.options.z, self.options.p1, self.options.p2, self.options.balanced, self.options.dispersion, self.options.mu)
+			model = make_bipartite(self.options.vertices, self.options.communities, self.options.x, self.options.y, self.options.z, self.options.p1, self.options.p2, self.options.balanced, self.options.dispersion, self.options.mu, self.options.normalize)
 			# Insert noise
 			if self.options.noise > 0.0:
 				model.matrix = add_noise(model.matrix, self.options.noise)
+
 		# Save
 		with self.timing.timeit_context_add('Save'):
+			# Save json inf file
 			output = self.options.directory + self.options.output
-			# Save json conf
-			with open(output + '.conf', 'w+') as f:
+			with open(output + '-inf.json', 'w+') as f:
 				d = {}
-				# Config for layers
-				d['filename'] = output
+				d['output'] = self.options.output
+				d['directory'] = self.options.directory
 				d['extension'] = 'ncol'
 				d['edges'] = numpy.count_nonzero(model.matrix)
-				d['v'] = self.options.vertices[0] + self.options.vertices[1]
-				d['v0'] = self.options.vertices[0]
-				d['v1'] = self.options.vertices[1]
-				d['c'] = self.options.communities
+				d['vertices'] = [self.options.vertices[0], self.options.vertices[1]]
+				d['communities'] = self.options.communities
 				d['x'] = self.options.x
 				d['y'] = self.options.y
 				d['z'] = self.options.z
-				d['p1'] = 'None'
-				d['p2'] = 'None'
-				if self.options.p1: d['p1'] = self.options.p1
-				if self.options.p2: d['p2'] = self.options.p2
-				d['b'] = self.options.balanced
+				d['p1'] = self.options.p1
+				d['p2'] = self.options.p2
+				d['balanced'] = self.options.balanced
 				d['d'] = self.options.dispersion
-				d['m'] = self.options.mu
-				d['n'] = self.options.noise
-				d['u'] = self.options.unweighted
+				d['mu'] = self.options.mu
+				d['noise'] = self.options.noise
+				d['unweighted'] = self.options.unweighted
+				d['normalize'] = self.options.normalize
+				d['conf'] = self.options.conf
+				d['show_timing'] = self.options.show_timing
+				d['save_timing_csv'] = self.options.save_timing_csv
+				d['save_timing_json'] = self.options.save_timing_json
+				d['unique_key'] = self.options.unique_key
 				json.dump(d, f, indent=4)
 
 			# Save overlap
@@ -330,24 +335,19 @@ class bnoc(object):
 				for values in model.cover_col:
 					writer.writerow(values)
 
+			# Save bipartite network
 			edgelist = ''
-			# Save weighted bipartite network
 			if self.options.unweighted is False:
 				for i in range(self.options.vertices[0]):
 					for j in range(self.options.vertices[1]):
 						if model.matrix[i, j] != 0:
 							u = i
 							v = j + self.options.vertices[0]
-							weight = model.matrix[i, j]
-							edgelist += '%s %s %s\n' % (u, v, weight)
-			# Save unweighted bipartite network
-			else:
-				for i in range(self.options.vertices[0]):
-					for j in range(self.options.vertices[1]):
-						if model.matrix[i, j] != 0:
-							u = i
-							v = j + self.options.vertices[0]
-							edgelist += '%s %s\n' % (u, v)
+							if self.options.unweighted is False:
+								weight = numpy.around(model.matrix[i, j], decimals=3)
+								edgelist += '%s %s %s\n' % (u, v, weight)
+							else:
+								edgelist += '%s %s\n' % (u, v)
 
 			with open(output + '.ncol', 'w+') as f:
 				f.write(edgelist)
@@ -357,7 +357,7 @@ class bnoc(object):
 		if self.options.save_timing_json: self.timing.save_json(output)
 
 def main():
-	"""Main entry point for the application when run from the command line"""
+	""" Main entry point for the application when run from the command line. """
 	return bnoc().run()
 
 if __name__ == "__main__":
