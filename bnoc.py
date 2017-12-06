@@ -261,12 +261,13 @@ class bnoc(object):
 			elif (self.options.p1 is not None) and (self.options.p2 is None):
 				self.options.p2 = self.options.p1
 
-			if sum(self.options.p1) != 1:
-				self.log.warning('The sum of probabilities p1 must be equal to 1')
-				sys.exit(1)
-			if sum(self.options.p1) != 1:
-				self.log.warning('The sum of probabilities p2 must be equal to 1')
-				sys.exit(1)
+			if self.options.p1 is not None:
+				if sum(self.options.p1) != 1:
+					self.log.warning('The sum of probabilities p1 must be equal to 1')
+					sys.exit(1)
+				if sum(self.options.p2) != 1:
+					self.log.warning('The sum of probabilities p2 must be equal to 1')
+					sys.exit(1)
 
 			if self.options.communities > (self.options.vertices[0] + self.options.vertices[1]):
 				self.log.warning('The number of communities must be less than the number of vertices')
