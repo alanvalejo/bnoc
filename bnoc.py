@@ -289,7 +289,7 @@ class bnoc(object):
 		# # Save
 		# with self.timing.timeit_context_add('Save'):
 		# 	# Save json inf file
-		# 	output = self.options.directory + self.options.output
+			output = self.options.directory + self.options.output
 		# 	with open(output + '-inf.json', 'w+') as f:
 		# 		d = {}
 		# 		d['output'] = self.options.output
