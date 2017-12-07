@@ -54,7 +54,10 @@ __docformat__ = 'markdown en'
 __version__ = '0.1'
 __date__ = '2017-10-01'
 
-def make_bipartite(vertices, communities, x, y, z, p1, p2, balanced, dispersion, mu, normalize):
+global max_itr
+max_itr = 1000
+
+def make_bipartite(vertices, communities, x, y, z, p1, p2, balanced, dispersion, mu, normalize, log):
 	""" Create a unweighted bipartite network with community structure.
 
 	Args:
@@ -80,26 +83,24 @@ def make_bipartite(vertices, communities, x, y, z, p1, p2, balanced, dispersion,
 
 	# Distributions of vertices in communities
 	if balanced or (p1 is None):
-		average = float("{0:.5f}".format(1.0 / communities))
+		average = float("{0:.20f}".format(1.0 / communities))
 		p1 = communities * [average]
-		sum_prob = float("{0:.5f}".format(sum(p1)))
-		if sum_prob < 1.0:
-			last = 1.0 - sum_prob
-			p1[-1] = float("{0:.5f}".format(last + average))
-		if sum_prob > 1.0:
-			last = sum_prob - 1.0
-			p1[-1] = float("{0:.5f}".format(average - last))
-		p2 = p1
-	while True:
+	for itr in range(max_itr + 1):
 		membership_row = numpy.random.choice(communities, size=vertices[0], replace=True, p=p1)
 		membership_row = sorted(membership_row)
-		unique_row, count_row = numpy.unique(membership_row, return_counts=True)
+		unique_row = numpy.unique(membership_row)
 		if len(unique_row) == communities: break
-	while True:
+		if itr == max_itr:
+			log.warning('Warning: Convergence failure, reduce the number of communities or run again.')
+			sys.exit(1)
+	for itr in range(max_itr + 1):
 		membership_col = numpy.random.choice(communities, size=vertices[1], replace=True, p=p2)
 		membership_col = sorted(membership_col)
-		unique_col, count_col = numpy.unique(membership_col, return_counts=True)
+		unique_col = numpy.unique(membership_col)
 		if len(unique_col) == communities: break
+		if itr == max_itr:
+			log.warning('Warning: Convergence failure, reduce the number of communities or run again.')
+			sys.exit(1)
 
 	# Create a cover
 	cover_row = numpy.empty((communities, 0)).tolist()
@@ -263,17 +264,17 @@ class bnoc(object):
 
 			if self.options.p1 is not None:
 				if sum(self.options.p1) != 1:
-					self.log.warning('The sum of probabilities p1 must be equal to 1')
+					self.log.warning('Warning: The sum of probabilities p1 must be equal to 1.')
 					sys.exit(1)
 				if sum(self.options.p2) != 1:
-					self.log.warning('The sum of probabilities p2 must be equal to 1')
+					self.log.warning('Warning: The sum of probabilities p2 must be equal to 1.')
 					sys.exit(1)
 
 			if self.options.communities > (self.options.vertices[0] + self.options.vertices[1]):
-				self.log.warning('The number of communities must be less than the number of vertices')
+				self.log.warning('Warning: The number of communities must be less than the number of vertices.')
 				sys.exit(1)
 			if self.options.z > self.options.communities:
-				self.log.warning('Number of vertices of overlapping communities must be less than the number of communities')
+				self.log.warning('Warning: Number of vertices of overlapping communities must be less than the number of communities.')
 				sys.exit(1)
 			if (self.options.x or self.options.y) and (self.options.z is None):
 				self.options.z = 2
@@ -281,77 +282,76 @@ class bnoc(object):
 		# Graph construction
 		with self.timing.timeit_context_add('BNOC'):
 			# Create a unweighted bipartite network with fully connected communities
-			model = make_bipartite(self.options.vertices, self.options.communities, self.options.x, self.options.y, self.options.z, self.options.p1, self.options.p2, self.options.balanced, self.options.dispersion, self.options.mu, self.options.normalize)
+			model = make_bipartite(self.options.vertices, self.options.communities, self.options.x, self.options.y, self.options.z, self.options.p1, self.options.p2, self.options.balanced, self.options.dispersion, self.options.mu, self.options.normalize, self.log)
 			# Insert noise
 			if self.options.noise > 0.0:
 				model.matrix = add_noise(model.matrix, self.options.noise)
 
 		# # Save
-		# with self.timing.timeit_context_add('Save'):
-		# 	# Save json inf file
+		with self.timing.timeit_context_add('Save'):
+			# Save json inf file
 			output = self.options.directory + self.options.output
-		# 	with open(output + '-inf.json', 'w+') as f:
-		# 		d = {}
-		# 		d['output'] = self.options.output
-		# 		d['directory'] = self.options.directory
-		# 		d['extension'] = 'ncol'
-		# 		d['edges'] = numpy.count_nonzero(model.matrix)
-		# 		d['vertices'] = [self.options.vertices[0], self.options.vertices[1]]
-		# 		d['communities'] = self.options.communities
-		# 		d['x'] = self.options.x
-		# 		d['y'] = self.options.y
-		# 		d['z'] = self.options.z
-		# 		d['p1'] = self.options.p1
-		# 		d['p2'] = self.options.p2
-		# 		d['balanced'] = self.options.balanced
-		# 		d['d'] = self.options.dispersion
-		# 		d['mu'] = self.options.mu
-		# 		d['noise'] = self.options.noise
-		# 		d['unweighted'] = self.options.unweighted
-		# 		d['normalize'] = self.options.normalize
-		# 		d['conf'] = self.options.conf
-		# 		d['show_timing'] = self.options.show_timing
-		# 		d['save_timing_csv'] = self.options.save_timing_csv
-		# 		d['save_timing_json'] = self.options.save_timing_json
-		# 		d['unique_key'] = self.options.unique_key
-		# 		json.dump(d, f, indent=4)
-		#
-		# 	# Save overlap
-		# 	if len(model.overlap_row) > 0:
-		# 		with open(output + '.overrow', 'w+') as f:
-		# 			writer = csv.writer(f, delimiter=' ')
-		# 			writer.writerow(model.overlap_row)
-		# 	if len(model.overlap_col) > 0:
-		# 		with open(output + '.overcol', 'w+') as f:
-		# 			writer = csv.writer(f, delimiter=' ')
-		# 			writer.writerow(model.overlap_col)
-		#
-		# 	# Save cover
-		# 	with open(output + '.coverrow', 'w+') as f:
-		# 		writer = csv.writer(f, delimiter=' ')
-		# 		for values in model.cover_row:
-		# 			writer.writerow(values)
-		# 	with open(output + '.covercol', 'w+') as f:
-		# 		writer = csv.writer(f, delimiter=' ')
-		# 		for values in model.cover_col:
-		# 			writer.writerow(values)
-		#
-		# 	# Save bipartite network
-		# 	edgelist = ''
-		# 	if self.options.unweighted is False:
-		# 		for i in range(self.options.vertices[0]):
-		# 			for j in range(self.options.vertices[1]):
-		# 				if model.matrix[i, j] != 0:
-		# 					u = i
-		# 					v = j + self.options.vertices[0]
-		# 					if self.options.unweighted is False:
-		# 						weight = numpy.around(model.matrix[i, j], decimals=3)
-		# 						edgelist += '%s %s %s\n' % (u, v, weight)
-		# 					else:
-		# 						edgelist += '%s %s\n' % (u, v)
-		#
-		# 	with open(output + '.ncol', 'w+') as f:
-		# 		f.write(edgelist)
+			with open(output + '-inf.json', 'w+') as f:
+				d = {}
+				d['output'] = self.options.output
+				d['directory'] = self.options.directory
+				d['extension'] = 'ncol'
+				d['edges'] = numpy.count_nonzero(model.matrix)
+				d['vertices'] = [self.options.vertices[0], self.options.vertices[1]]
+				d['communities'] = self.options.communities
+				d['x'] = self.options.x
+				d['y'] = self.options.y
+				d['z'] = self.options.z
+				d['p1'] = self.options.p1
+				d['p2'] = self.options.p2
+				d['balanced'] = self.options.balanced
+				d['d'] = self.options.dispersion
+				d['mu'] = self.options.mu
+				d['noise'] = self.options.noise
+				d['unweighted'] = self.options.unweighted
+				d['normalize'] = self.options.normalize
+				d['conf'] = self.options.conf
+				d['show_timing'] = self.options.show_timing
+				d['save_timing_csv'] = self.options.save_timing_csv
+				d['save_timing_json'] = self.options.save_timing_json
+				d['unique_key'] = self.options.unique_key
+				json.dump(d, f, indent=4)
+
+			# Save overlap
+			if len(model.overlap_row) > 0:
+				with open(output + '.overrow', 'w+') as f:
+					writer = csv.writer(f, delimiter=' ')
+					writer.writerow(model.overlap_row)
+			if len(model.overlap_col) > 0:
+				with open(output + '.overcol', 'w+') as f:
+					writer = csv.writer(f, delimiter=' ')
+					writer.writerow(model.overlap_col)
+
+			# Save cover
+			with open(output + '.coverrow', 'w+') as f:
+				writer = csv.writer(f, delimiter=' ')
+				for values in model.cover_row:
+					writer.writerow(values)
+			with open(output + '.covercol', 'w+') as f:
+				writer = csv.writer(f, delimiter=' ')
+				for values in model.cover_col:
+					writer.writerow(values)
+
+			# Save bipartite network
+			edgelist = ''
+			for i in range(self.options.vertices[0]):
+				for j in range(self.options.vertices[1]):
+					if model.matrix[i, j] != 0:
+						u = i
+						v = j + self.options.vertices[0]
+						if self.options.unweighted is False:
+							weight = numpy.around(model.matrix[i, j], decimals=3)
+							edgelist += '%s %s %s\n' % (u, v, weight)
+						else:
+							edgelist += '%s %s\n' % (u, v)
+
+			with open(output + '.ncol', 'w+') as f:
+				f.write(edgelist)
 
 		if self.options.show_timing: self.timing.print_tabular()
 		if self.options.save_timing_csv: self.timing.save_csv(output + '-timing.csv')
