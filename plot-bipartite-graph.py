@@ -136,14 +136,16 @@ def plot_communities(graph, save, output, membership, bbox, comms, overlapping):
 	vertex_color = ['#FFFFFF'] * graph.vcount()
 	for i in range(0, comms + 1):
 		colors.append('%06X' % random.randint(0, 0xFFFFFF))
-		colors = ['809743', '406599', 'DF90D3']
+		# colors = ['809743', '406599', 'DF90D3']
+		colors = ['rgba(34,98,41,1)', 'rgba(94,130,166,1)', 'rgba(166,131,95,1)']
 	for vertex in graph.vs():
 		membership = graph.vs[vertex.index]['membership']
 		if len(membership) == 1:
 			index = membership.pop()
-			vertex_color[vertex.index] = str('#') + colors[index]
+			# vertex_color[vertex.index] = str('#') + colors[index]
+			vertex_color[vertex.index] = colors[index]
 		else:
-			vertex_color[vertex.index] = '#FF0000' # overlapping vertices
+			vertex_color[vertex.index] = 'rgba(255,0,0,1)' # '#FF0000' rede overlapping vertices
 	graph.vs['color'] = vertex_color
 
 	visual_style = {}
@@ -152,9 +154,14 @@ def plot_communities(graph, save, output, membership, bbox, comms, overlapping):
 	old_max = max(graph.es['weight'])
 	new_min = 0.01
 	new_max = 7
+	new_opacity_min = 0.1
+	new_opacity_max = 1.0
 	edge_width = []
+	edge_opacity = []
 	for w in graph.es['weight']:
 		edge_width.append(remap(w, old_min, old_max, new_min, new_max))
+		opacity = remap(w, old_min, old_max, new_opacity_min, new_opacity_max)
+		edge_opacity.append("rgba(1,1,1," + str(opacity) + ")")
 
 	graph.vs['vertex_size'] = 12
 	graph.vs[overlapping]['vertex_size'] = 15
@@ -162,8 +169,13 @@ def plot_communities(graph, save, output, membership, bbox, comms, overlapping):
 	graph.vs[overlapping]['vertex_shape'] = 'rectangle'
 
 	visual_style['edge_label'] = None
-	visual_style['edge_color'] = 'black'
+	visual_style['edge_color'] = edge_opacity
 	visual_style['edge_width'] = edge_width
+	visual_style['arrow_size'] = 0.7
+	visual_style['edge_curved'] = 0.0
+	# For multiple edges, single edges get default value
+	# igraph.autocurve(graph, attribute='curved', default=0.5)
+	# visual_style['edge_curved'] = graph.es['curved']
 
 	visual_style['vertex_shape'] = graph.vs['vertex_shape']
 	visual_style['vertex_size'] = graph.vs['vertex_size']
@@ -177,6 +189,7 @@ def plot_communities(graph, save, output, membership, bbox, comms, overlapping):
 	visual_style['layout'] = graph.layout('bipartite')
 	visual_style['bbox'] = bbox
 	visual_style['margin'] = 8
+	visual_style['edge_order_by'] = ('weight', 'asc')
 
 	if save is True:
 		igraph.plot(graph, output, **visual_style)
