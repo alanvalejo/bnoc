@@ -35,7 +35,7 @@ python bnoc.py [options]
     $ python plot-bipartite-matrix.py -f output/network1.ncol -o matrix1 -v 25 25 -b 200 100 -s -e png
 
 ![](img/matrix1.png)
-<img src="https://github.com/alanvalejo/bnoc/edit/master/img/matrix1.png" height="24" width="48">
+<img src="https://github.com/alanvalejo/bnoc/blob/master/img/matrix1.png" height="24" width="48">
 
     $ python bnoc.py -dir output -o network2 -v 25 25 -c 3 -d 0.4 -b -x 2 -y 2 -z 2
     $ python plot-bipartite-graph.py -f output/network2.ncol -v 25 25 -m -b 400 200 -s -e png
