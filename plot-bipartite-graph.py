@@ -158,8 +158,8 @@ def plot_communities(graph, save, output, membership, bbox, comms, overlapping):
 	vertex_color = ['#FFFFFF'] * graph.vcount()
 	for i in range(0, comms + 1):
 		colors.append('%06X' % random.randint(0, 0xFFFFFF))
-		# colors = ['809743', '406599', 'DF90D3']
-		colors = ['rgba(34,98,41,1)', 'rgba(94,130,166,1)', 'rgba(166,131,95,1)']
+		colors = ['#809743', '#406599', '#DF90D3']
+		# colors = ['rgba(34,98,41,1)', 'rgba(94,130,166,1)', 'rgba(166,131,95,1)']
 	for vertex in graph.vs():
 		membership = graph.vs[vertex.index]['membership']
 		if len(membership) == 1:
