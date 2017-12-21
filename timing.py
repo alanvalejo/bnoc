@@ -65,6 +65,9 @@ class Timing(object):
 		elapsed = time.time() - self.start
 		self.elapsed_set.append([elapsed // 60, '%.4f' % (elapsed % 60)])
 
+	def get_seconds(self, item=1):
+		return (float(self.elapsed_set[item][0]) * 60) + float(self.elapsed_set[item][1])
+
 	def print_tabular(self):
 		max_row = max(self.rows + self.header, key=len)
 		format_str = '{:>' + str(len(max_row) + 1) + '}'

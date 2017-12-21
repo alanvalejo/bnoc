@@ -144,10 +144,11 @@ def make_bipartite(vertices, communities, x, y, z, p1, p2, balanced, dispersion,
 
 	# Make a large negative binomial distribution
 	num_samples = numpy.count_nonzero(matrix)
-	prob = dispersion / (dispersion + mu)
+	# prob = dispersion / (dispersion + mu)
+	# prob = ((mu + dispersion * mu ** 2) - mu) / (mu + dispersion * mu ** 2)
 	# from scipy.stats import nbinom
 	# distribution = nbinom.rvs(dispersion, prob, size=num_samples)
-	distribution = numpy.random.negative_binomial(dispersion, prob, num_samples)
+	distribution = numpy.random.negative_binomial(dispersion, 1 - mu, num_samples)
 	if normalize:
 		distribution = distribution / numpy.linalg.norm(distribution)
 	matrix[matrix > 0] = distribution
@@ -218,7 +219,7 @@ class bnoc(object):
 		self.optional.add_argument('-n', '--noise', dest='noise', action='store', default=0.0, type=float, metavar='float', help='noise (default: %(default)s)')
 		self.optional.add_argument('-x', '--x', dest='x', action='store', default=0, type=int, metavar='int', help='number of vertices from V1 that participate of overlaping (default: %(default)s)')
 		self.optional.add_argument('-y', '--y', dest='y', action='store', default=0, type=int, metavar='int', help='number of vertices from V2 that participate of overlaping (default: %(default)s)')
-		self.optional.add_argument('-z', '--z', dest='z', action='store', default=2, type=int, metavar='int', help='number of vertices of overlapping communities (default: %(default)s)')
+		self.optional.add_argument('-z', '--z', dest='z', action='store', default=1, type=int, metavar='int', help='number of vertices of overlapping communities (default: %(default)s)')
 		self.optional.add_argument('-p1', '--probabilities_1', dest='p1', action='store', default=None, nargs='+', type=float, metavar='float', help='probability of vertices in each community for layer 1')
 		self.optional.add_argument('-p2', '--probabilities_2', dest='p2', action='store', default=None, nargs='+', type=float, metavar='float', help='probability of vertices in each community for layer 2')
 		self.optional.add_argument('-b', '--balanced', dest='balanced', action='store_true', default=False, help='boolean balancing flag that suppresses -p parameter (default: %(default)s)')
@@ -271,6 +272,7 @@ class bnoc(object):
 					self.log.warning('Warning: The sum of probabilities p2 must be equal to 1.')
 					sys.exit(1)
 
+			if self.options.communities == 0: self.options.communities = 1
 			if self.options.communities > (self.options.vertices[0] + self.options.vertices[1]):
 				self.log.warning('Warning: The number of communities must be less than the number of vertices.')
 				sys.exit(1)
@@ -288,73 +290,73 @@ class bnoc(object):
 			if self.options.noise > 0.0:
 				model.matrix = add_noise(model.matrix, self.options.noise)
 
-		# # Save
-		# with self.timing.timeit_context_add('Save'):
+		# Save
+		with self.timing.timeit_context_add('Save'):
 			# Save json inf file
-			# output = self.options.directory + self.options.output
-			# with open(output + '-inf.json', 'w+') as f:
-			# 	d = {}
-			# 	d['output'] = self.options.output
-			# 	d['directory'] = self.options.directory
-			# 	d['extension'] = 'ncol'
-			# 	d['edges'] = numpy.count_nonzero(model.matrix)
-			# 	d['vertices'] = [self.options.vertices[0], self.options.vertices[1]]
-			# 	d['communities'] = self.options.communities
-			# 	d['x'] = self.options.x
-			# 	d['y'] = self.options.y
-			# 	d['z'] = self.options.z
-			# 	d['p1'] = self.options.p1
-			# 	d['p2'] = self.options.p2
-			# 	d['balanced'] = self.options.balanced
-			# 	d['d'] = self.options.dispersion
-			# 	d['mu'] = self.options.mu
-			# 	d['noise'] = self.options.noise
-			# 	d['unweighted'] = self.options.unweighted
-			# 	d['normalize'] = self.options.normalize
-			# 	d['conf'] = self.options.conf
-			# 	d['show_timing'] = self.options.show_timing
-			# 	d['save_timing_csv'] = self.options.save_timing_csv
-			# 	d['save_timing_json'] = self.options.save_timing_json
-			# 	d['unique_key'] = self.options.unique_key
-			# 	json.dump(d, f, indent=4)
-			#
-			# # Save overlap
-			# if len(model.overlap_row) > 0:
-			# 	with open(output + '.overrow', 'w+') as f:
-			# 		writer = csv.writer(f, delimiter=' ')
-			# 		writer.writerow(model.overlap_row)
-			# if len(model.overlap_col) > 0:
-			# 	with open(output + '.overcol', 'w+') as f:
-			# 		writer = csv.writer(f, delimiter=' ')
-			# 		writer.writerow(model.overlap_col)
-			#
-			# # Save cover
-			# with open(output + '.coverrow', 'w+') as f:
-			# 	writer = csv.writer(f, delimiter=' ')
-			# 	for values in model.cover_row:
-			# 		writer.writerow(values)
-			# with open(output + '.covercol', 'w+') as f:
-			# 	writer = csv.writer(f, delimiter=' ')
-			# 	for values in model.cover_col:
-			# 		writer.writerow(values)
-			#
-			# # Save bipartite network
-			# edgelist = ''
-			# for i in range(self.options.vertices[0]):
-			# 	for j in range(self.options.vertices[1]):
-			# 		if model.matrix[i, j] != 0:
-			# 			u = i
-			# 			v = j + self.options.vertices[0]
-			# 			if self.options.unweighted is False:
-			# 				weight = numpy.around(model.matrix[i, j], decimals=3)
-			# 				edgelist += '%s %s %s\n' % (u, v, weight)
-			# 			else:
-			# 				edgelist += '%s %s\n' % (u, v)
-			#
-			# with open(output + '.ncol', 'w+') as f:
-			# 	f.write(edgelist)
+			output = self.options.directory + self.options.output
+			with open(output + '-inf.json', 'w+') as f:
+				d = {}
+				d['output'] = self.options.output
+				d['directory'] = self.options.directory
+				d['extension'] = 'ncol'
+				d['edges'] = numpy.count_nonzero(model.matrix)
+				d['vertices'] = [self.options.vertices[0], self.options.vertices[1]]
+				d['communities'] = self.options.communities
+				d['x'] = self.options.x
+				d['y'] = self.options.y
+				d['z'] = self.options.z
+				d['p1'] = self.options.p1
+				d['p2'] = self.options.p2
+				d['balanced'] = self.options.balanced
+				d['d'] = self.options.dispersion
+				d['mu'] = self.options.mu
+				d['noise'] = self.options.noise
+				d['unweighted'] = self.options.unweighted
+				d['normalize'] = self.options.normalize
+				d['conf'] = self.options.conf
+				d['show_timing'] = self.options.show_timing
+				d['save_timing_csv'] = self.options.save_timing_csv
+				d['save_timing_json'] = self.options.save_timing_json
+				d['unique_key'] = self.options.unique_key
+				json.dump(d, f, indent=4)
 
-		print numpy.count_nonzero(model.matrix)
+			# Save overlap
+			if len(model.overlap_row) > 0:
+				with open(output + '.overrow', 'w+') as f:
+					writer = csv.writer(f, delimiter=' ')
+					writer.writerow(model.overlap_row)
+			if len(model.overlap_col) > 0:
+				with open(output + '.overcol', 'w+') as f:
+					writer = csv.writer(f, delimiter=' ')
+					writer.writerow(model.overlap_col)
+
+			# Save cover
+			with open(output + '.coverrow', 'w+') as f:
+				writer = csv.writer(f, delimiter=' ')
+				for values in model.cover_row:
+					writer.writerow(values)
+			with open(output + '.covercol', 'w+') as f:
+				writer = csv.writer(f, delimiter=' ')
+				for values in model.cover_col:
+					writer.writerow(values)
+
+			# Save bipartite network
+			edgelist = ''
+			for i in range(self.options.vertices[0]):
+				for j in range(self.options.vertices[1]):
+					if model.matrix[i, j] != 0:
+						u = i
+						v = j + self.options.vertices[0]
+						if self.options.unweighted is False:
+							weight = numpy.around(model.matrix[i, j], decimals=3)
+							edgelist += '%s %s %s\n' % (u, v, weight)
+						else:
+							edgelist += '%s %s\n' % (u, v)
+
+			with open(output + '.ncol', 'w+') as f:
+				f.write(edgelist)
+
+		print self.timing.get_seconds(item=1)
 		if self.options.show_timing: self.timing.print_tabular()
 		if self.options.save_timing_csv: self.timing.save_csv(output + '-timing.csv')
 		if self.options.save_timing_json: self.timing.save_json(output + '-timing.csv')
