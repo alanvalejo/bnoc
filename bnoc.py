@@ -90,7 +90,8 @@ def make_bipartite(vertices, communities, x, y, z, p1, p2, balanced, dispersion,
 		membership_row = numpy.random.choice(communities, size=vertices[0], replace=True, p=p1)
 		membership_row = sorted(membership_row)
 		unique_row = numpy.unique(membership_row)
-		if len(unique_row) == communities: break
+		if len(unique_row) == communities:
+			break
 		if itr == max_itr:
 			log.warning('Warning: Convergence failure, reduce the number of communities or run again.')
 			sys.exit(1)
@@ -98,7 +99,8 @@ def make_bipartite(vertices, communities, x, y, z, p1, p2, balanced, dispersion,
 		membership_col = numpy.random.choice(communities, size=vertices[1], replace=True, p=p2)
 		membership_col = sorted(membership_col)
 		unique_col = numpy.unique(membership_col)
-		if len(unique_col) == communities: break
+		if len(unique_col) == communities:
+			break
 		if itr == max_itr:
 			log.warning('Warning: Convergence failure, reduce the number of communities or run again.')
 			sys.exit(1)
@@ -251,8 +253,10 @@ class bnoc(object):
 			if self.options.directory is None:
 				self.options.directory = os.path.dirname(os.path.abspath(__file__))
 			else:
-				if not os.path.exists(self.options.directory): os.makedirs(self.options.directory)
-			if not self.options.directory.endswith('/'): self.options.directory += '/'
+				if not os.path.exists(self.options.directory):
+					os.makedirs(self.options.directory)
+			if not self.options.directory.endswith('/'):
+				self.options.directory += '/'
 			if self.options.output is None:
 				self.options.output = 'bipartite_network'
 			if self.options.unique_key:
@@ -272,7 +276,8 @@ class bnoc(object):
 					self.log.warning('Warning: The sum of probabilities p2 must be equal to 1.')
 					sys.exit(1)
 
-			if self.options.communities == 0: self.options.communities = 1
+			if self.options.communities == 0:
+				self.options.communities = 1
 			if self.options.communities > (self.options.vertices[0] + self.options.vertices[1]):
 				self.log.warning('Warning: The number of communities must be less than the number of vertices.')
 				sys.exit(1)
@@ -356,14 +361,17 @@ class bnoc(object):
 			with open(output + '.ncol', 'w+') as f:
 				f.write(edgelist)
 
-		print self.timing.get_seconds(item=1)
-		if self.options.show_timing: self.timing.print_tabular()
-		if self.options.save_timing_csv: self.timing.save_csv(output + '-timing.csv')
-		if self.options.save_timing_json: self.timing.save_json(output + '-timing.csv')
+		if self.options.show_timing:
+			self.timing.print_tabular()
+		if self.options.save_timing_csv:
+			self.timing.save_csv(output + '-timing.csv')
+		if self.options.save_timing_json:
+			self.timing.save_json(output + '-timing.csv')
 
 def main():
 	""" Main entry point for the application when run from the command line. """
 	return bnoc().run()
+
 
 if __name__ == "__main__":
 	sys.exit(main())

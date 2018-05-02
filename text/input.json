@@ -1,26 +1,30 @@
 {
 	"vertices": [
-		1000,
-		100
+		5000,
+		5000
 	],
 	"directory": "output",
-	"output": "network1",
+	"output": "network5000x5000noise",
 	"dispersion": 0.3,
-	"mu": 10,
-	"communities": 3,
-	"noise": 0.05,
+	"mu": 0.3,
+	"communities": 5,
+	"noise": 0.001,
 	"x": 0,
 	"y": 0,
 	"z": 0,
 	"p1": [
-		0.9,
-		0.09,
-		0.01
+		0.2,
+		0.2,
+		0.2,
+		0.2,
+		0.2
 	],
 	"p2": [
-		0.33,
-		0.33,
-		0.34
+		0.2,
+		0.2,
+		0.2,
+		0.2,
+		0.2
 	],
 	"balanced": false,
 	"unweighted": false,

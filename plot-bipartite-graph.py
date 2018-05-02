@@ -7,6 +7,7 @@ import sys
 import os
 import numpy
 import random
+import json
 
 from itertools import izip
 
@@ -271,14 +272,14 @@ if __name__ == '__main__':
 	parser.add_argument('-b', '--bbox', dest='bbox', action='store', nargs='+', default=[1000, 300], help='[The bounding box of the plot]')
 	parser.add_argument('-e', '--format', action='store', dest='format', type=str, default='pdf', help='[Bipartite Graph]')
 	parser.add_argument('-s', '--save', dest='save', help='Save image', action='store_true', default=False)
+	parser.add_argument('-g', '--homogeneous', dest='homogeneous', help='Plot homogeneous', action='store_true', default=False)
 	parser.add_argument('-u', '--unweighted', dest='unweighted', action='store_true', default=False, help='Unweighted networks (default: %(default)s)')
+	parser.add_argument('-c', '--config', dest='config', action='store_true', default=False, help='config file (default: %(default)s)')
 	options = parser.parse_args()
 
 	# Read and pre-process
 	if options.filename is None:
 		parser.error('required -f [filename] arg.')
-	if options.vertices is None:
-		parser.error('required -v [Number of vertices for each layer] arg.')
 	if options.directory is None:
 		options.directory = os.path.dirname(os.path.abspath(options.filename)) + '/'
 	else:
@@ -289,6 +290,12 @@ if __name__ == '__main__':
 		options.output = options.directory + filename + '.' + options.format
 	else:
 		options.output = options.directory + options.output + '.' + options.format
+
+	if options.config:
+		config_file, extension = os.path.splitext(options.filename)
+		config_file = config_file + '.conf'
+		config_file = json.load(open(config_file))
+		options.vertices = [int(config_file['v0']), int(config_file['v1'])]
 
 	# Create bipartite graph
 	graph = load(options.filename, options.vertices, options.unweighted)
@@ -311,6 +318,9 @@ if __name__ == '__main__':
 		for vertex in graph.vs():
 			if len(vertex['membership']) > 1:
 				overlapping.append(vertex.index)
-		plot_communities(graph, options.save, options.output, graph.vs['membership'], options.bbox, comms, overlapping)
+		if options.homogeneous:
+			plot_homogeneous(graph, options.save, options.output, graph.vs['membership'], options.bbox, comms, overlapping)
+		else:
+			plot_communities(graph, options.save, options.output, graph.vs['membership'], options.bbox, comms, overlapping)
 	else:
 		plot_graph(graph, options.save, options.output, options.bbox)
