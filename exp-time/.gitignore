@@ -3,7 +3,14 @@
 
 # But not these files...
 !.gitignore
-!exp-coarsening.py
+!exp-coarsening-1.py
+!exp-coarsening-2.py
+!exp-coarsening-3.py
+!exp-coarsening-4.py
+!exp-coarsening-5.py
+!exp-coarsening-6.py
+!exp-coarsening-7.py
+!exp-coarsening-8.py
 !exp-data.py
 !exp-summary.py
 
