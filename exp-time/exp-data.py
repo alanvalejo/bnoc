@@ -10,5 +10,5 @@ for index, v in enumerate(range(1000, 101000, 1000)):
 	o = str(index + 1)
 	c = str(int(v * 0.01))
 
-	print 'python ../bnoc.py -v ' + v1 + ' ' + v2 + ' -d ' + d + ' -m ' + m + ' -c ' + c + ' -b -n ' + n + ' -dir exp-time/ -o ' + o
-	os.system('python ../bnoc.py -v ' + v1 + ' ' + v2 + ' -d ' + d + ' -m ' + m + ' -c ' + c + ' -b -n ' + n + ' -dir exp-time/ -o ' + o)
+	print 'python ../bnoc.py -v ' + v1 + ' ' + v2 + ' -d ' + d + ' -m ' + m + ' -c ' + c + ' -b -n ' + n + ' -dir dataset -o ' + o
+	os.system('python ../bnoc.py -v ' + v1 + ' ' + v2 + ' -d ' + d + ' -m ' + m + ' -c ' + c + ' -b -n ' + n + ' -dir dataset -o ' + o)
