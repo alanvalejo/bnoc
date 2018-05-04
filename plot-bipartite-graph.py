@@ -11,19 +11,15 @@ import json
 
 from itertools import izip
 
-def load(filename, vertices, unweighted):
+def load(filename, vertices):
 	"""
 	Load ncol npartite graph and generate special attributes
 	"""
 
 	data = numpy.loadtxt(filename, skiprows=0, dtype='string')
 	dict_edges = dict()
-	if unweighted is True:
-		for row in data:
-			dict_edges[(int(row[0]), int(row[1]))] = 1.0
-	else:
-		for row in data:
-			dict_edges[(int(row[0]), int(row[1]))] = float(row[2])
+	for row in data:
+		dict_edges[(int(row[0]), int(row[1]))] = float(row[2])
 	edges, weights = izip(*dict_edges.items())
 	graph = igraph.Graph(sum(vertices), list(edges)) # edge_attrs={'weight': weights}
 	graph.es['weight'] = weights
@@ -32,17 +28,25 @@ def load(filename, vertices, unweighted):
 	for i in range(len(vertices)):
 		types += [i] * vertices[i]
 	graph.vs['type'] = types
+	graph.vs['name'] = range(graph.vcount())
+	for v in graph.vs():
+		v['original'] = [v.index]
+	graph['adjlist'] = map(set, graph.get_adjlist())
 	graph['vertices'] = vertices
+	graph['layers'] = len(vertices)
 	# Not allow direct graphs
-	if graph.is_directed(): graph.to_undirected(combine_edges=None)
+	if graph.is_directed():
+		graph.to_undirected(combine_edges=None)
 
 	return graph
 
 def remap(x, oMin, oMax, nMin, nMax):
 
 	# Range check
-	if oMin == oMax: return None
-	if nMin == nMax: return None
+	if oMin == oMax:
+		return None
+	if nMin == nMax:
+		return None
 
 	# Check reversed input range
 	reverseInput = False
@@ -259,6 +263,7 @@ def plot_graph(graph, save, output, bbox):
 	else:
 		igraph.plot(graph, **visual_style)
 
+
 if __name__ == '__main__':
 
 	# Parse options command line
@@ -283,8 +288,10 @@ if __name__ == '__main__':
 	if options.directory is None:
 		options.directory = os.path.dirname(os.path.abspath(options.filename)) + '/'
 	else:
-		if not os.path.exists(options.directory): os.makedirs(options.directory)
-	if not options.directory.endswith('/'): options.directory += '/'
+		if not os.path.exists(options.directory):
+			os.makedirs(options.directory)
+	if not options.directory.endswith('/'):
+		options.directory += '/'
 	filename, extension = os.path.splitext(os.path.basename(options.filename))
 	if options.output is None:
 		options.output = options.directory + filename + '.' + options.format
@@ -293,18 +300,21 @@ if __name__ == '__main__':
 
 	if options.config:
 		config_file, extension = os.path.splitext(options.filename)
-		config_file = config_file + '.conf'
+		config_file = config_file + '-inf.json'
 		config_file = json.load(open(config_file))
-		options.vertices = [int(config_file['v0']), int(config_file['v1'])]
+		options.vertices = [int(config_file['vertices'][0]), int(config_file['vertices'][1])]
 
 	# Create bipartite graph
-	graph = load(options.filename, options.vertices, options.unweighted)
-	for vertex in graph.vs(): vertex['membership'] = set()
+	# print options.vertices
+	graph = load(options.filename, options.vertices)
+	for vertex in graph.vs():
+		vertex['membership'] = set()
 
 	# Plot
 	if options.membership:
 		comms = 0
-		for vertex in graph.vs(): vertex['membership'] = set()
+		for vertex in graph.vs():
+			vertex['membership'] = set()
 		with open(os.path.splitext(options.filename)[0] + '.coverrow', 'r') as f:
 			for comm, line in enumerate(f):
 				for vertex in map(int, line.strip().split(' ')):

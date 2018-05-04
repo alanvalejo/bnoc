@@ -1,30 +1,26 @@
 {
 	"vertices": [
-		5000,
-		5000
+		500,
+		500
 	],
 	"directory": "output",
 	"output": "network5000x5000noise",
 	"dispersion": 0.3,
 	"mu": 0.3,
-	"communities": 5,
-	"noise": 0.001,
+	"communities": 3,
+	"noise": 0.01,
 	"x": 0,
 	"y": 0,
 	"z": 0,
 	"p1": [
-		0.2,
-		0.2,
-		0.2,
-		0.2,
-		0.2
+		0.3,
+		0.3,
+		0.4
 	],
 	"p2": [
-		0.2,
-		0.2,
-		0.2,
-		0.2,
-		0.2
+		0.3,
+		0.3,
+		0.4
 	],
 	"balanced": false,
 	"unweighted": false,
@@ -33,5 +29,6 @@
 	"show_timing": true,
 	"save_timing_csv": false,
 	"save_timing_json": false,
-	"unique_key": false
+	"unique_key": false,
+	"hard": true
 }

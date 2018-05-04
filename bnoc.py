@@ -158,7 +158,7 @@ def make_bipartite(vertices, communities, x, y, z, p1, p2, balanced, dispersion,
 
 	return model
 
-def add_noise(bipartite, noise):
+def add_noise(bipartite, noise, log, hard=True):
 	""" Insert a noise in adjacent matrix
 		Noise or Threshold in (0,1]
 
@@ -175,18 +175,22 @@ def add_noise(bipartite, noise):
 	num_samples = numpy.count_nonzero(bipartite)
 	A = [False]
 	while not any(A): # while all elements are 'False'
-		A = numpy.random.rand(num_samples) < noise
+		# A = numpy.random.rand(num_samples) < noise
+		A = numpy.random.uniform(0.0, 1.0, num_samples) < noise
 	B = bipartite[bipartite > 0]
 	removed_weights = B[A]
 	B[A] = 0
-	bipartite[bipartite > 0] = B
+	if hard:
+		bipartite[bipartite > 0] = B
 
 	# Adding a fraction of intra-community edges
 	num_samples = numpy.count_nonzero(bipartite == 0)
 	A = [False]
 	while not any(A): # while all elements are 'False'
-		A = numpy.random.rand(num_samples) < noise
+		# A = numpy.random.rand(num_samples) < noise
+		A = numpy.random.uniform(0.0, 1.0, num_samples) < noise
 	B = bipartite[bipartite == 0]
+	removed_weights = list(removed_weights) + ([0] * (numpy.count_nonzero(A) - len(removed_weights)))
 	B[A] = numpy.random.choice(removed_weights, numpy.count_nonzero(A))
 	bipartite[bipartite == 0] = B
 
@@ -227,6 +231,7 @@ class bnoc(object):
 		self.optional.add_argument('-b', '--balanced', dest='balanced', action='store_true', default=False, help='boolean balancing flag that suppresses -p parameter (default: %(default)s)')
 		self.optional.add_argument('-u', '--unweighted', dest='unweighted', action='store_true', default=False, help='Unweighted networks (default: %(default)s)')
 		self.optional.add_argument('-no', '--normalize', dest='normalize', action='store_true', default=False, help='Scale input vectors individually to unit norm (vector length) (default: %(default)s)')
+		self.optional.add_argument('-hd', '--hard', dest='hard', action='store_true', default=False, help='Hard noise (default: %(default)s)')
 		self.optional.add_argument('-cf', '--conf', dest='conf', action='store', type=str, metavar='FILE', default=None, help='name of the %(metavar)s to be loaded')
 		self.optional.add_argument('-st', '--show_timing', dest='show_timing', action='store_true', default=False, help='show timing (default: %(default)s)')
 		self.optional.add_argument('-stc', '--save_timing_csv', dest='save_timing_csv', action='store_true', default=False, help='save timing in csv (default: %(default)s)')
@@ -293,7 +298,7 @@ class bnoc(object):
 			model = make_bipartite(self.options.vertices, self.options.communities, self.options.x, self.options.y, self.options.z, self.options.p1, self.options.p2, self.options.balanced, self.options.dispersion, self.options.mu, self.options.normalize, self.log)
 			# Insert noise
 			if self.options.noise > 0.0:
-				model.matrix = add_noise(model.matrix, self.options.noise)
+				model.matrix = add_noise(model.matrix, self.options.noise, self.log, hard=self.options.hard)
 
 		# Save
 		with self.timing.timeit_context_add('Save'):
