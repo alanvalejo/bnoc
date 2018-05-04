@@ -1,0 +1,10 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!condmat1995to1999.ncol
+!condmat1995to1999.json
+
+# ...even if they are in subdirectories
+# !*/
