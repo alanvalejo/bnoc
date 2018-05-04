@@ -1,8 +1,8 @@
 import os
 
-d = str(0.3)
-m = str(0.3)
-n = str(0.01)
+d = str(0.2)
+m = str(0.1)
+n = str(0.001)
 
 for index, v in enumerate(range(1000, 101000, 1000)):
 	v1 = str(v / 2)
