@@ -3,8 +3,9 @@
 
 # But not these files...
 !.gitignore
-!condmat1995to1999.ncol
-!condmat1995to1999.json
+!exp-coarsening.py
+!exp-data.py
+!exp-summary.py
 
 # ...even if they are in subdirectories
 # !*/
