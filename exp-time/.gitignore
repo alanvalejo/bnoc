@@ -12,7 +12,11 @@
 !exp-coarsening-7.py
 !exp-coarsening-8.py
 !exp-data.py
-!exp-summary.py
+!exp-summary-levels-edges.py
+!exp-summary-levels-vertices.py
+!exp-summary-rf-vertices.py
+!exp-summary-rf-edges.py
+!exp-summary-vertices-time.py
 
 # ...even if they are in subdirectories
 # !*/
