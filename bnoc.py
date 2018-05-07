@@ -153,6 +153,8 @@ def make_bipartite(vertices, communities, x, y, z, p1, p2, balanced, dispersion,
 	distribution = numpy.random.negative_binomial(dispersion, 1 - mu, num_samples)
 	if normalize:
 		distribution = distribution / numpy.linalg.norm(distribution)
+	# numpy.set_printoptions(threshold=numpy.nan)
+	# print distribution
 	matrix[matrix > 0] = distribution
 	model = bipartite(matrix=matrix, cover_row=cover_row, cover_col=cover_col, overlap_row=overlap_row, overlap_col=overlap_col)
 
@@ -175,8 +177,8 @@ def add_noise(bipartite, noise, log, hard=True):
 	num_samples = numpy.count_nonzero(bipartite)
 	A = [False]
 	while not any(A): # while all elements are 'False'
-		# A = numpy.random.rand(num_samples) < noise
-		A = numpy.random.uniform(0.0, 1.0, num_samples) < noise
+		A = numpy.random.rand(num_samples) < noise
+		# A = numpy.random.uniform(0.0, 1.0, num_samples) < noise
 	B = bipartite[bipartite > 0]
 	removed_weights = B[A]
 	B[A] = 0

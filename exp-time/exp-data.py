@@ -1,10 +1,10 @@
 import os
 
 d = str(0.2)
-m = str(0.1)
+m = str(0.2)
 n = str(0.001)
 
-for index, v in enumerate(range(1000, 101000, 1000)):
+for index, v in enumerate(range(1000, 10100, 1000)):
 	v1 = str(v / 2)
 	v2 = str(v / 2)
 	o = str(index + 1)
