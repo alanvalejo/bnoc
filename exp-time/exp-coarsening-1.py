@@ -5,6 +5,9 @@ rset = [0.1, 0.2, 0.3, 0.4, 0.5]
 mset = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 d = 'network/'
 
+if not os.path.exists(d):
+	os.makedirs(d)
+
 for index, v in enumerate(range(1000, 101000, 1000)):
 	v1 = (v / 2)
 	v2 = (v / 2)
@@ -13,5 +16,6 @@ for index, v in enumerate(range(1000, 101000, 1000)):
 		for m in mset:
 			for r in rset:
 				o = c + '_' + str(v) + '_' + str(r).replace('.', '')
-				print('python ../../opm-src/coarsening.py -f ' + f + ' -v ' + str(v1) + ' ' + str(v2) + ' -c ' + str(c) + ' -m ' + str(m) + ' -r ' + str(r) + ' -d ' + str(d) + ' -o ' + str(o) + ' --save_timing --save_source --save_ncol --save_conf')
-				os.system('python ../../opm-src/coarsening.py -f ' + f + ' -v ' + str(v1) + ' ' + str(v2) + ' -c ' + str(c) + ' -m ' + str(m) + ' -r ' + str(r) + ' -d ' + str(d) + ' -o ' + str(o) + ' --save_timing --save_source --save_ncol --save_conf')
+				command = 'python ../../mob_exp/coarsening.py -f ' + f + ' -v ' + str(v1) + ' ' + str(v2) + ' -c ' + str(c) + ' -m ' + str(m) + ' -r ' + str(r) + ' -d ' + str(d) + ' -o ' + str(o) + ' --save_timing --save_source --save_ncol --save_conf'
+				print(command)
+				os.system(command)

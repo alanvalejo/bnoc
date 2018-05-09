@@ -158,25 +158,28 @@ def plot_homogeneous(graph, save, output, membership, bbox, comms, overlapping):
 
 def plot_communities(graph, save, output, membership, bbox, comms, overlapping):
 
+	degree = numpy.array(graph.degree())
+	to_delete_ids = numpy.where(degree == 0)[0]
+	print degree
+	print to_delete_ids
+	print graph.ecount()
+
 	graph.vs['color'] = 'black'
 	colors = []
 	vertex_color = ['#FFFFFF'] * graph.vcount()
-	for i in range(0, comms + 1):
+	for i in range(0, comms):
 		colors.append('%06X' % random.randint(0, 0xFFFFFF))
-		colors = ['#809743', '#406599', '#DF90D3']
-		# colors = ['rgba(34,98,41,1)', 'rgba(94,130,166,1)', 'rgba(166,131,95,1)']
+	# colors = ['#809743', '#406599', '#DF90D3']
+	# colors = ['rgba(34,98,41,1)', 'rgba(94,130,166,1)', 'rgba(166,131,95,1)']
+
 	for vertex in graph.vs():
 		membership = graph.vs[vertex.index]['membership']
 		if len(membership) == 1:
 			index = membership.pop()
-			# vertex_color[vertex.index] = str('#') + colors[index]
-			if comms > 3:
-				r = lambda: random.randint(0, 255)
-				vertex_color[vertex.index] = 'rgba(' + str(r()) + ',' + str(r()) + ',' + str(r()) + ',1)'
-			else:
-				vertex_color[vertex.index] = colors[index]
+			vertex_color[vertex.index] = str('#') + colors[index]
 		else:
 			vertex_color[vertex.index] = 'rgba(255,0,0,1)' # '#FF0000' rede overlapping vertices
+
 	graph.vs['color'] = vertex_color
 
 	visual_style = {}

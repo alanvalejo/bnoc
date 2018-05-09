@@ -192,6 +192,10 @@ def add_noise(bipartite, noise, log, hard=True):
 		# A = numpy.random.rand(num_samples) < noise
 		A = numpy.random.uniform(0.0, 1.0, num_samples) < noise
 	B = bipartite[bipartite == 0]
+	_mean = numpy.mean(removed_weights, dtype=numpy.float64)
+	# _mean = numpy.median(removed_weights)
+	if not hard:
+		removed_weights = [_mean] * len(removed_weights)
 	removed_weights = list(removed_weights) + ([0] * (numpy.count_nonzero(A) - len(removed_weights)))
 	B[A] = numpy.random.choice(removed_weights, numpy.count_nonzero(A))
 	bipartite[bipartite == 0] = B

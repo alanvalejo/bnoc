@@ -1,15 +1,15 @@
 {
 	"vertices": [
-		500,
-		500
+		20,
+		20
 	],
 	"directory": "output",
-	"output": "network5000x5000noise",
-	"dispersion": 0.3,
-	"mu": 0.3,
+	"output": "network",
+	"dispersion": 0.6,
+	"mu": 0.9,
 	"communities": 3,
-	"noise": 0.01,
 	"x": 0,
+	"noise": 0.05,
 	"y": 0,
 	"z": 0,
 	"p1": [
@@ -26,9 +26,9 @@
 	"unweighted": false,
 	"normalize": false,
 	"conf": null,
-	"show_timing": true,
+	"show_timing": false,
 	"save_timing_csv": false,
 	"save_timing_json": false,
 	"unique_key": false,
-	"hard": true
+	"hard": false
 }
