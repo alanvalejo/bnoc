@@ -1,0 +1,40 @@
+{
+	"vertices": [
+		35,
+		25
+	],
+	"bbox": [
+		500,
+		200
+	],
+	"input": "output/bipartite.ncol",
+	"type_file": "output/bipartite.type",
+	"membership": "output/bipartite.membership",
+	"directory": "output",
+	"output": "img_bnoc_bipartite",
+	"color": null,
+	"layout": null,
+	"weight": null,
+	"layout_name": "bipartite",
+	"degree": false,
+	"curved": false,
+	"img_roteted": false,
+	"img_trim": true,
+	"save_pdf": true,
+	"save_png": false,
+	"show": false,
+	"black": false,
+	"eq_color": true,
+	"overlappin_paint": true,
+	"overlapping_shape": "rectangle",
+	"overlapping_color": "red",
+	"vertex_frame_color": "black",
+	"margin": 45,
+	"vertex_size": 8,
+	"vertex_max": 16,
+	"vertex_min": 3,
+	"weight_min": 1,
+	"weight_max": 5,
+	"opacity_min": 0.1,
+	"opacity_max": 0.5
+}

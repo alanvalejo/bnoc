@@ -1,7 +1,3 @@
 output
-input
-text
-time
-img
-sparsity
+log
 *.pyc

@@ -1,0 +1,39 @@
+{
+	"vertices": [
+		15,
+		25,
+		40
+	],
+	"bbox": [
+		600,
+		500
+	],
+	"input": "output/heterogeneous.ncol",
+	"type_file": "output/heterogeneous.type",
+	"membership": "output/heterogeneous.membership",
+	"directory": "output",
+	"output": "img_bnoc_heterogeneous",
+	"color": null,
+	"layout": null,
+	"weight": null,
+	"layout_name": "heterogeneous",
+	"degree": false,
+	"curved": false,
+	"img_roteted": false,
+	"img_trim": true,
+	"save_pdf": true,
+	"save_png": false,
+	"show": false,
+	"black": false,
+	"eq_color": true,
+	"overlapping_color": "red",
+	"vertex_frame_color": "black",
+	"margin": 45,
+	"vertex_size": 8,
+	"vertex_max": 16,
+	"vertex_min": 3,
+	"weight_min": 1,
+	"weight_max": 6,
+	"opacity_min": 0.05,
+	"opacity_max": 0.5
+}

@@ -1,0 +1,11 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!input_bipartite.json
+!input_kpartite.json
+!input_heterogeneous.json
+!plot_bipartite.json
+!plot_kpartite.json
+!plot_heterogeneous.json

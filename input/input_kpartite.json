@@ -1,0 +1,73 @@
+{
+	"directory": "output",
+	"output": "kpartite",
+	"vertices": [
+		15,
+		15,
+		15,
+		15
+	],
+	"schema": [
+		[0,1],
+		[1,2],
+		[2,3],
+		[3,1]
+	],
+	"communities": [
+		2,
+		2,
+		2,
+		2
+	],
+	"x": [
+		8,
+		3,
+		0,
+		1
+	],
+	"z": [
+		2,
+		2,
+		2,
+		2
+	],
+	"p": [
+		[0.5, 0.5],
+		[0.5, 0.5],
+		[0.5, 0.5],
+		[0.5, 0.5]
+	],
+	"dispersion":[
+		0.45,
+		0.45,
+		0.45,
+		0.45
+	],
+	"mu": [
+		0.55,
+		0.55,
+		0.55,
+		0.55
+	],
+	"noise": [
+		0.1,
+		0.1,
+		0.1,
+		0.1
+	],
+	"balanced": false,
+	"unweighted": false,
+	"normalize": true,
+	"show_timing": false,
+	"save_timing_csv": false,
+	"save_timing_json": false,
+	"unique_key": false,
+	"hard": true,
+	"save_type": true,
+	"save_gml": false,
+	"save_arff": false,
+	"save_ncol": true,
+	"save_cover": true,
+	"save_membership": true,
+	"save_overlap": true
+}

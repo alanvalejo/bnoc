@@ -1,0 +1,42 @@
+{
+	"vertices": [
+		15,
+		15,
+		15,
+		15
+	],
+	"bbox": [
+		500,
+		500
+	],
+	"input": "output/kpartite.ncol",
+	"type_file": "output/kpartite.type",
+	"membership": "output/kpartite.membership",
+	"directory": "output",
+	"output": "img_bnoc_kpartite",
+	"color": null,
+	"layout": null,
+	"weight": null,
+	"layout_name": "heterogeneous",
+	"degree": false,
+	"curved": false,
+	"img_roteted": false,
+	"img_trim": true,
+	"save_pdf": true,
+	"save_png": false,
+	"show": false,
+	"black": false,
+	"eq_color": true,
+	"overlappin_paint": true,
+	"overlapping_shape": "rectangle",
+	"overlapping_color": "red",
+	"vertex_frame_color": "black",
+	"margin": 45,
+	"vertex_size": 8,
+	"vertex_max": 16,
+	"vertex_min": 3,
+	"weight_min": 1,
+	"weight_max": 5,
+	"opacity_min": 0.1,
+	"opacity_max": 0.5
+}

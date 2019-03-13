@@ -1,0 +1,67 @@
+{
+	"directory": "output",
+	"output": "heterogeneous",
+	"vertices": [
+		15,
+		25,
+		40
+	],
+	"schema": [
+		[0,1],
+		[1,2],
+		[2,2]
+	],
+	"communities": [
+		2,
+		2,
+		4
+	],
+	"x": [
+		0,
+		0,
+		0
+	],
+	"z": [
+		0,
+		0,
+		0
+	],
+	"p": [
+		[0.5, 0.5],
+		[0.5, 0.5],
+		[0.25, 0.25, 0.25, 0.25]
+	],
+	"dispersion":[
+		0.45,
+		0.85,
+		0.15,
+		0.15
+	],
+	"mu": [
+		0.45,
+		0.85,
+		0.35,
+		0.35
+	],
+	"noise": [
+		0.1,
+		0.2,
+		0.0,
+		0.0
+	],
+	"balanced": true,
+	"unweighted": false,
+	"normalize": true,
+	"show_timing": false,
+	"save_timing_csv": false,
+	"save_timing_json": false,
+	"unique_key": false,
+	"hard": true,
+	"save_type": true,
+	"save_gml": false,
+	"save_arff": false,
+	"save_ncol": true,
+	"save_cover": true,
+	"save_membership": true,
+	"save_overlap": true
+}
