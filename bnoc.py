@@ -6,6 +6,7 @@ BNOC (Benchmarking weighted bipartite network with overlapping community structu
 ==========================
 
 Copyright (C) 2017 Alan Valejo <alanvalejo@gmail.com> All rights reserved
+Copyright (C) 2017 Luzia Romanetto <luziaromanetto@gmail.com> All rights reserved
 Copyright (C) 2017 Fabiana Góes <fabii.goes@gmail.com> All rights reserved
 
 BNOC is a realistic benchmark for weighted bipartite overlapping community
