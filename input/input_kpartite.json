@@ -63,6 +63,8 @@
 	"save_timing_json": false,
 	"unique_key": false,
 	"hard": true,
+	"output_npy": false,
+	"output_text": true,
 	"save_type": true,
 	"save_gml": false,
 	"save_arff": false,

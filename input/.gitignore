@@ -6,6 +6,6 @@
 !input_bipartite.json
 !input_kpartite.json
 !input_heterogeneous.json
-!plot_bipartite.json
+!plot_bipartite_layout_1.json
 !plot_kpartite.json
 !plot_heterogeneous.json

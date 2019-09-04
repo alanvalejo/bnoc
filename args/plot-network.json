@@ -71,13 +71,49 @@
 		"help": "vertex weight filen name"
 	},
 	"di": {
-		"long": "delete_isolated",
+		"long": "delete_degree",
 		"required": false,
-		"dest": "delete_isolated",
+		"dest": "delete_degree",
+		"type": "int",
+		"nargs": "+",
+		"action": "store",
+		"default": false,
+		"help": "delete vertex by degree"
+	},
+    "dwle": {
+        "long": "delete_weight_le",
+        "required": false,
+        "dest": "delete_weight_le",
+        "type": "int",
+        "nargs": "+",
+        "action": "store",
+        "default": false,
+        "help": "delete edge by weight less than or equal to"
+    },
+	"cd": {
+		"long": "coloring_degree",
+		"required": false,
+		"dest": "coloring_degree",
 		"action": "store_true",
 		"default": false,
-		"help": "vertex weight filen name"
+		"help": "coloring degree"
 	},
+	"cw": {
+		"long": "coloring_weight",
+		"required": false,
+		"dest": "coloring_weight",
+		"action": "store_true",
+		"default": false,
+		"help": "coloring vertex weight"
+	},
+    "cdt": {
+        "long": "community_detection",
+        "required": false,
+        "dest": "community_detection",
+        "action": "store_true",
+        "default": false,
+        "help": "community detection algorithm"
+    },
 	"os": {
 		"long": "overlap_shape",
 		"required": false,
@@ -89,9 +125,9 @@
 		"help": "overlap shape"
 	},
 	"op": {
-		"long": "overlappin_paint",
+		"long": "overlapping_paint",
 		"required": false,
-		"dest": "overlappin_paint",
+		"dest": "overlapping_paint",
 		"action": "store_true",
 		"default": false,
 		"help": "overlap vertex paint"
@@ -136,6 +172,16 @@
 		"default": "white",
 		"help": "vertex frame color"
 	},
+	"vfw": {
+		"long": "vertex_frame_width",
+		"required": false,
+		"dest": "vertex_frame_width",
+		"type": "int",
+		"nargs": "?",
+		"action": "store",
+		"default": 1.0,
+		"help": "vertex frame width"
+	},
 	"oc": {
 		"long": "overlapping_color",
 		"required": false,
@@ -156,6 +202,16 @@
 		"default": null,
 		"help": "number of vertices for each layer"
 	},
+    "k": {
+        "long": "k",
+        "required": false,
+        "dest": "k",
+        "type": "int",
+        "nargs": "?",
+        "action": "store",
+        "default": 3,
+        "help": "number of communities"
+    },
 	"mg": {
 		"long": "margin",
 		"required": false,

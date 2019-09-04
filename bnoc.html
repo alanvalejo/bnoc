@@ -1,0 +1,300 @@
+<h3 id="bnoc-a-benchmarking-tool-to-generate-bipartite-k-partite-and-heterogeneous-network-models-with-overlapping-communities">BNOC: A benchmarking tool to generate bipartite, k-partite and heterogeneous network models with overlapping communities</h3>
+<p><strong>About</strong></p>
+<p>BNOC is a tool for synthesizing bipartite, k-partite and heterogeneous network models with varied features representative of properties from real networks. Multiple input parameters can be manipulated to create networks of varying sizes and with distinct community patterns in terms of number, size, balance, edge distribution intra- and inter-communities, degree of overlapping and cohesion, and degree of noise in the connection patterns.</p>
+<p><strong>Download</strong></p>
+<ul>
+<li>You can download Bnoc software in http://www.alanvalejo.com.br/software?name=bnoc</li>
+<li>You can download PyNetViewer software in http://www.alanvalejo.com.br/software?name=pynetviewer</li>
+</ul>
+<p><strong>Usage</strong></p>
+<pre><code>python bnoc.py [options]</code></pre>
+<table>
+<colgroup>
+<col style="width: 13%" />
+<col style="width: 21%" />
+<col style="width: 18%" />
+<col style="width: 46%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th>Option</th>
+<th>Domain</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>-dir –directory</td>
+<td>str [DIR]</td>
+<td>‘.’</td>
+<td>directory of output file</td>
+</tr>
+<tr class="even">
+<td>-out –output</td>
+<td>str [FILE]</td>
+<td>‘out’</td>
+<td>filename</td>
+</tr>
+<tr class="odd">
+<td>-cnf –conf</td>
+<td>str [FILE]</td>
+<td>None</td>
+<td>Input parameters in .json format</td>
+</tr>
+<tr class="even">
+<td>-v, –vertices</td>
+<td>int array</td>
+<td>[10, 10, 10]</td>
+<td>number of vertices for each layer</td>
+</tr>
+<tr class="odd">
+<td>-d, –dispersion</td>
+<td>float array</td>
+<td>[0.3, 0.3, 0.3]</td>
+<td>dispersion of gamma mixing distribution for each layer</td>
+</tr>
+<tr class="even">
+<td>-m, –mu</td>
+<td>float array</td>
+<td>[0.3, 0.3, 0.3]</td>
+<td>dispersion or range of wieght values for each layer</td>
+</tr>
+<tr class="odd">
+<td>-c, –communities</td>
+<td>int array</td>
+<td>[2, 2, 2]</td>
+<td>number of communities</td>
+</tr>
+<tr class="even">
+<td>-x, –x</td>
+<td>int array</td>
+<td>[1, 1, 1]</td>
+<td>number of vertices from V1 that participate of overlapin</td>
+</tr>
+<tr class="odd">
+<td>-z, –z</td>
+<td>int array</td>
+<td>[2, 2, 2]</td>
+<td>number of vertices of overlapping communities</td>
+</tr>
+<tr class="even">
+<td>-p, –p</td>
+<td>int array of array</td>
+<td>[[0.5, 0.5], [0.5, 0.5]]</td>
+<td>probability of vertices in each community for each layer</td>
+</tr>
+<tr class="odd">
+<td>-e, –scheme</td>
+<td>int array of array</td>
+<td>[[0, 1], [1,2]]</td>
+<td>connections type</td>
+</tr>
+<tr class="even">
+<td>-n, –noise</td>
+<td>float array</td>
+<td>[0.1, 0.1]</td>
+<td>noise for each connections type</td>
+</tr>
+<tr class="odd">
+<td>-b, –balanced</td>
+<td>boolean</td>
+<td>False</td>
+<td>boolean balancing flag that suppresses -p parameter</td>
+</tr>
+<tr class="even">
+<td>-u, –unweighted</td>
+<td>boolean</td>
+<td>False</td>
+<td>unweighted networks</td>
+</tr>
+<tr class="odd">
+<td>-no, –normalize</td>
+<td>boolean</td>
+<td>False</td>
+<td>scale input vectors individually to unit norm (vector length)</td>
+</tr>
+<tr class="even">
+<td>-hd, –hard</td>
+<td>boolean</td>
+<td>False</td>
+<td>hard noise</td>
+</tr>
+<tr class="odd">
+<td>–save_npy</td>
+<td>boolean</td>
+<td>False</td>
+<td>save numpy object</td>
+</tr>
+<tr class="even">
+<td>–save_ncol</td>
+<td>boolean</td>
+<td>False</td>
+<td>save ncol format</td>
+</tr>
+<tr class="odd">
+<td>–save_gmal</td>
+<td>boolean</td>
+<td>False</td>
+<td>save gml format</td>
+</tr>
+<tr class="even">
+<td>–save_arff</td>
+<td>boolean</td>
+<td>False</td>
+<td>save arff format</td>
+</tr>
+<tr class="odd">
+<td>–save_cover</td>
+<td>boolean</td>
+<td>False</td>
+<td>save communities in cover form</td>
+</tr>
+<tr class="even">
+<td>–save_membership</td>
+<td>boolean</td>
+<td>False</td>
+<td>save communities in a membership format</td>
+</tr>
+<tr class="odd">
+<td>–save_type</td>
+<td>boolean</td>
+<td>False</td>
+<td>save vertex type</td>
+</tr>
+<tr class="even">
+<td>–save_overlap</td>
+<td>boolean</td>
+<td>False</td>
+<td>save save overlap vertices</td>
+</tr>
+<tr class="odd">
+<td>–show_timing</td>
+<td>boolean</td>
+<td>False</td>
+<td>show timing</td>
+</tr>
+<tr class="even">
+<td>–save_timing_json</td>
+<td>boolean</td>
+<td>False</td>
+<td>save timing in json</td>
+</tr>
+<tr class="odd">
+<td>–save_timing_csv</td>
+<td>boolean</td>
+<td>False</td>
+<td>save timing in csv</td>
+</tr>
+<tr class="even">
+<td>–unique_key</td>
+<td>boolean</td>
+<td>False</td>
+<td>output date and time as unique_key</td>
+</tr>
+</tbody>
+</table>
+<p>Parameters <code>-d</code>, <code>-m</code>, <code>-c</code>, <code>-x</code>, <code>-y</code> and <code>-z</code> are array of size L, where L is the number of layer. Parameter <code>p</code> is an array of array the probability of vertices in each community for each layer. Parameter <code>e</code> define the scheme of the networks, i.e., the connections type.</p>
+<p><strong>Examples</strong></p>
+<p>You can use a config file (.json) to specify the parameters, for instance:</p>
+<pre><code>$ python bnoc.py -cnf input/input_bipartite.json
+$ python bnoc.py -cnf input/input_kpartite.json
+$ python bnoc.py -cnf input/input_heterogeneous.json</code></pre>
+<p>Then, it is possible plot the network using the PyNetViewer. You can download PyNetViewer software in http://www.alanvalejo.com.br/software?name=pynetviewer</p>
+<pre><code>$ python viewer.py -cnf input/plot_bipartite_layout_1.json
+$ python viewer.py -cnf input/plot_bipartite_layout_2.json
+$ python viewer.py -cnf input/plot_kpartite.json
+$ python viewer.py -cnf input/plot_heterogeneous.json</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Bipartite First Layout</th>
+<th style="text-align: center;">Bipartite Second Layout</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img src="/static/md/bnoc/img_bnoc_bipartite_layout_1.png" /></td>
+<td style="text-align: center;"><img src="/static/md/bnoc/img_bnoc_bipartite_layout_2.png" /></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Kpartite</th>
+<th style="text-align: center;">Heterogeneoous</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;"><img src="/static/md/bnoc/img_bnoc_kpartite.png" /></td>
+<td style="text-align: center;"><img src="/static/md/bnoc/img_bnoc_heterogeneous.png" /></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Scalability</strong></p>
+<p>BNOC can generate large-scale bipartite networks with tens or even hundreds of thousands of vertices and hundreds of millions of edges in a timely manner. See the article for details about complexity and scalability.</p>
+<p>Important, save the output files in text format is slow. It is recommended save the result with numpy <code>.npy</code> object, see <a href="https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.save.html">numpy.save</a> for details.</p>
+<p>For instance, a bipartite network with twenty thousand vertices (use <code>--show_timing</code> to print timing values):</p>
+<pre><code>$ python bnoc.py -cnf input/input_bipartite_time_ncol.json
+
+$        Snippet       Time [m]       Time [s]
+$ Pre-processing            0.0         0.0213
+$     Build BNOC            0.0         2.6187
+$           Save            1.0         34.596</code></pre>
+<p>Note, the bottleneck of the Bnoc execution time is to save the output in a text format. To suppress this limitation you can process the network directly in the memory or save a <code>.npy</code> object using <code>--output_npy</code> or <code>-onpy</code> parameter.</p>
+<pre><code>$ python bnoc.py -cnf input/input_bipartite_time_npy.json
+
+$        Snippet       Time [m]       Time [s]
+$ Pre-processing            0.0         0.0223
+$     Build BNOC            0.0         2.4116
+$           Save            1.0         1.0792</code></pre>
+<p><strong>Install</strong></p>
+<blockquote>
+<p>Pip</p>
+</blockquote>
+<pre><code>$ pip install -r /path/to/requirements.txt</code></pre>
+<blockquote>
+<p>Anaconda env</p>
+</blockquote>
+<pre><code>$ conda env create -f environment.yml
+$ conda activate bnoc</code></pre>
+<blockquote>
+<p>Anaconda create</p>
+</blockquote>
+<pre><code>$ conda create --name bnoc python=3.7.2
+$ conda activate bnoc
+$ conda install -c anaconda numpy
+$ conda install -c conda-forge python-igraph
+$ conda install -c anaconda pyyaml
+$ conda install -c conda-forge pypdf2
+$ conda install -c anaconda scipy</code></pre>
+<p><strong>Known Bugs</strong></p>
+<ul>
+<li>Please contact the author for problems and bug report.</li>
+</ul>
+<p><strong>Contact</strong></p>
+<ul>
+<li>Alan Valejo.</li>
+<li>Ph.D. candidate at University of São Paulo (USP), Brazil.</li>
+<li>alanvalejo@icmc.ups.br.</li>
+</ul>
+<p><strong>License and credits</strong></p>
+<ul>
+<li>The GNU General Public License v3.0</li>
+<li>Giving credit to the author by citing the papers [1]</li>
+</ul>
+<p><strong>To-do list</strong></p>
+<ul>
+<li>Explicitly seed a global variable or parameter to achieve reproducibility</li>
+<li>Improve usage section</li>
+</ul>
+<p><strong>References</strong></p>
+<blockquote>
+<p>[1] Coming soon</p>
+</blockquote>
+<div class="sourceCode" id="cb9"><pre class="sourceCode bib"><code class="sourceCode bibtex"><a class="sourceLine" id="cb9-1" data-line-number="1"><span class="co">    Coming soon</span></a></code></pre></div>
+<div class="footer">
+© Copyright (C) 2016 Alan Valejo &lt;alanvalejo@gmail.com&gt; All rights reserved.
+</div>
