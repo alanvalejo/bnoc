@@ -1,4 +1,6 @@
 bnoc.py
+input/input_document_term_easy.json
+input/input_document_term_hard.json
 input/input_bipartite.json
 input/input_bipartite_time_ncol.json
 input/input_bipartite_time_npy.json

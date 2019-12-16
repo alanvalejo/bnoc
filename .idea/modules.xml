@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/bnoc.iml" filepath="$PROJECT_DIR$/.idea/bnoc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../pbg/.idea/pbg.iml" filepath="$PROJECT_DIR$/../pbg/.idea/pbg.iml" />
       <module fileurl="file://$PROJECT_DIR$/../pynetviewer/.idea/pynetviewer.iml" filepath="$PROJECT_DIR$/../pynetviewer/.idea/pynetviewer.iml" />
     </modules>
   </component>

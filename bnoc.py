@@ -29,7 +29,7 @@ import sys
 import csv
 import copy
 import json
-import igraph
+# import igraph
 import inspect
 import os
 import math
@@ -173,9 +173,9 @@ class bnoc(object):
         if self.options.p is None:
             self.options.p = empty_lists = [[] for i in range(self.layers)]
         for layer in range(self.layers):
-            avg = float("{0:.2f}".format(1.0 / self.options.communities[layer]))
+            avg = float(1.0 / self.options.communities[layer])
             self.options.p[layer] = [avg] * self.options.communities[layer]
-            self.options.p[layer][-1] = float("{0:.2f}".format(1.0 - sum(self.options.p[layer][:-1])))
+            self.options.p[layer][-1] = float(1.0 - sum(self.options.p[layer][:-1]))
 
     def create_vertices_and_communities(self):
         """ Creates a list that gives the class for each element in the positioning
@@ -283,8 +283,14 @@ class bnoc(object):
             with open(output + '.membership', 'w+') as f:
                 writer = csv.writer(f, delimiter=' ')
                 for layer in range(self.layers):
-                    cl = igraph.Cover(self.cover[layer])
-                    for sublist in cl.membership:
+                    clusters = self.cover[layer]
+                    _clusters = [list(cluster) for cluster in clusters]
+                    _n = max(max(cluster) + 1 for cluster in _clusters if cluster)
+                    result = [[] for _ in range(_n)]
+                    for idx, cluster in enumerate(clusters):
+                        for item in cluster:
+                            result[item].append(idx)
+                    for sublist in result:
                         if sublist:
                             writer.writerow(sublist)
 
@@ -311,14 +317,6 @@ class bnoc(object):
         if self.options.save_ncol:
             with open(output + '.ncol', 'w+') as f:
                 f.write(edgelist)
-
-        # Save gml
-        if self.options.save_gml:
-            edges, weights = list(zip(*dict_edges.items()))
-            graph = igraph.Graph(sum(self.options.vertices), list(edges))
-            graph['vertices'] = list(map(str, self.options.vertices))
-            graph.es['weight'] = weights
-            graph.write(output + '.gml', format='gml')
 
         # Save arff
         if self.options.save_arff:
@@ -347,13 +345,16 @@ class bnoc(object):
             numpy.save(output + '-cover.npy', self.cover)
 
         # Save membership
-        membership = []
-        for l in self.cover:
-            cl = igraph.Cover(l)
-            membership.extend(cl.membership)
-        membership = list(filter(None, membership))
         if self.options.save_membership:
-            numpy.save(output + '-membership.npy', self.membership)
+            for layer in range(self.layers):
+                clusters = self.cover[layer]
+                _clusters = [list(cluster) for cluster in clusters]
+                _n = max(max(cluster) + 1 for cluster in _clusters if cluster)
+                result = [[] for _ in range(_n)]
+                for idx, cluster in enumerate(clusters):
+                    for item in cluster:
+                        result[item].append(idx)
+            numpy.save(output + '-membership.npy', result)
 
     def build(self):
         """ Runs the application. """

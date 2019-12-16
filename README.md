@@ -97,7 +97,7 @@ Note, the bottleneck of the Bnoc execution time is to save the output in a text 
 
 > Pip
     
-    $ pip install -r /path/to/requirements.txt
+    $ pip install -r requirements.txt
 
 > Anaconda env
 
