@@ -1,12 +1,16 @@
+```diff
+- Warning: The original implementation (i.e. paper version [1]) is deprecated. This software is a new version, more
+robust and fast. There may be divergences between this version and the original algorithm. If you looking for
+the original version used in the paper don't hesitate to contact the authors.**
+```
+
 ### BNOC: A benchmarking tool to generate bipartite, k-partite and heterogeneous network models with overlapping communities
 
 **About**
 
 BNOC is a tool for synthesizing bipartite, k-partite and heterogeneous network models with varied features representative of properties from real networks. Multiple input parameters can be manipulated to create networks of varying sizes and with distinct community patterns in terms of number, size, balance, edge distribution intra- and inter-communities, degree of overlapping and cohesion, and degree of noise in the connection patterns.
 
-> **:warning: The original implementation (paper version) is deprecated. This software is a new version, more robust and
-> fast. I.e., there may be divergences between this version and the original algorithm. If you looking for the
-> original version used in the paper don't hesitate to contact the authors.**
+
 
 > To help you visualize networks you can use the PyNetViewer software. You can download this software in:
 > https://github.com/alanvalejo/pynetviewer
@@ -52,32 +56,50 @@ Parameters `-d`, `-m`, `-c`, `-x`, `-y` and `-z` are array of size L, where L is
 
 You can use a config file (.json) to specify the parameters, for instance:
 
+A bipartite network with communities, overlapping and a small level of noise:
+
 	$ python bnoc.py -cnf input/input_bipartite_1.json
-	$ python bnoc.py -cnf input/input_bipartite_2.json
+
+Then, it is possible to plot the network using the PyNetViewer using a bipartite layout. Line widths reflect the
+ corresponding edge weights; red squares depict overlapping vertices; and colored circles indicate non-overlapping vertices and their assigned community.
+	
+    $ python viewer.py -cnf input/plot_bipartite_1_layout_1.json
+
+![](img/img_bnoc_bipartite_1_layout_1.png)
+
+The same network with standard layout. Only overlapping vertices are highlighted.
+
+    $ python viewer.py -cnf input/plot_bipartite_1_layout_2.json
+	
+![](img/img_bnoc_bipartite_1_layout_2.png)
+
+A bipartite network with hard level of noise, unbalanced community sizes and no overlapping.
+
+    $ python bnoc.py -cnf input/input_bipartite_2.json
+    $ python viewer.py -cnf input/plot_bipartite_2.json
+    
+![](img/img_bnoc_bipartite_2.png) 
+    
+A bipartite network with small level of noise, balanced community sizes, no overlapping and many communities.    
+    
 	$ python bnoc.py -cnf input/input_bipartite_3.json
-	$ python bnoc.py -cnf input/input_kpartite.json
-	$ python bnoc.py -cnf input/input_heterogeneous.json
-	
-Then, it is possible plot the network using the PyNetViewer.
-	
-	$ python viewer.py -cnf input/plot_bipartite_1_layout_1.json
-	$ python viewer.py -cnf input/plot_bipartite_1_layout_2.json
-	$ python viewer.py -cnf input/plot_bipartite_2.json
 	$ python viewer.py -cnf input/plot_bipartite_3.json
+	
+![](img/img_bnoc_bipartite_3.png)	
+	
+A k-partite network with k=4 and overlapping.
+
+	$ python bnoc.py -cnf input/input_kpartite.json
 	$ python viewer.py -cnf input/plot_kpartite.json
+	
+![](img/img_bnoc_kpartite.png) 	
+	
+A heterogeneous network with k=3 layers and no overlapping.
+	
+	$ python bnoc.py -cnf input/input_heterogeneous.json
 	$ python viewer.py -cnf input/plot_heterogeneous.json
 
-Bipartite First Layout             | Bipartite Second Layout                 
-:---------------------------------:|:----------------------------------------:
-![](img/img_bnoc_bipartite_1_layout_1.png) | ![](img/img_bnoc_bipartite_1_layout_2.png)
-
-Bipartite hard noise               | Bipartite many communities                 
-:---------------------------------:|:----------------------------------------:
-![](img/img_bnoc_bipartite_2.png)  | ![](img/img_bnoc_bipartite_3.png)
-
-Kpartite                           |  Heterogeneoous
-:---------------------------------:|:-------------------------------------:
-![](img/img_bnoc_kpartite.png)    | ![](img/img_bnoc_heterogeneous.png)
+![](img/img_bnoc_heterogeneous.png)
 
 **Scalability**
 
