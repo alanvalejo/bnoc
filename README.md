@@ -1,7 +1,5 @@
 ```diff
-- Warning: The original implementation (i.e. paper version [1]) is deprecated. This software is a new version, more
- robust and fast. There may be divergences between this version and the original algorithm. If you looking for the
- original version used in the paper don't hesitate to contact the authors.**
+- Warning: The original implementation (i.e. paper version [1]) is deprecated. This software is a new version, more robust and fast. There may be divergences between this version and the original algorithm. If you looking for the original version used in the paper don't hesitate to contact the authors.**
 ```
 
 ### BNOC: A benchmarking tool to generate bipartite, k-partite and heterogeneous network models with overlapping communities
