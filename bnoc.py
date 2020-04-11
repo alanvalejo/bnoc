@@ -29,7 +29,6 @@ import sys
 import csv
 import copy
 import json
-# import igraph
 import inspect
 import os
 import math
@@ -38,7 +37,6 @@ import models.args as args
 import models.helper as helper
 
 from models.timing import Timing
-from decimal import Decimal
 
 __maintainer__ = 'Alan Valejo'
 __email__ = 'alanvalejo@gmail.com, luziaromanetto@gmail.com'
@@ -74,7 +72,8 @@ class bnoc(object):
             self.log = helper.initialize_logger(dir='log', output='log')
 
             if self.options.save_arff and (self.options.x is not None):
-                self.log.warning('Warning: Arff format does not allow overlap in the first layer (parameter x). Please use --save_arff=False or supress x parameter.')
+                self.log.warning('Warning: Arff format does not allow overlap in the first layer (parameter x).\
+                                Please use --save_arff=False or supress x parameter.')
                 sys.exit(1)
 
             self.layers = len(self.options.vertices)
@@ -126,7 +125,8 @@ class bnoc(object):
 
             if self.options.x is not None and self.options.z is not None:
                 if self.options.z[layer] > self.options.communities[layer]:
-                    self.log.warning('Warning: Number of vertices of overlapping communities must be less than the number of communities in all layers.')
+                    self.log.warning('Warning: Number of vertices of overlapping communities must be less than \
+                                    the number of communities in all layers.')
                     sys.exit(1)
                 if sum(self.options.x) > 0 and sum(self.options.z) == 0:
                     self.options.z = [2] * len(self.options.x)

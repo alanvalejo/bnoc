@@ -1,34 +1,34 @@
 {
-	"directory": "output",
-	"output": "bipartite",
+	"directory": "../pynetviewer/output/",
+	"output": "bipartite_3",
 	"vertices": [
-		150,
-		250
+		1550,
+		1550
 	],
 	"schema": [
 		[0,1]
 	],
 	"communities": [
-		3,
-		3
+		15,
+		15
 	],
 	"x": [
-		4,
-		4
+		0,
+		0
 	],
 	"z": [
-		2,
-		2
+		0,
+		0
 	],
 	"p": null,
 	"dispersion":[
 		0.4
 	],
 	"mu": [
-		0.5
+		0.4
 	],
 	"noise": [
-		0.1
+		0.03
 	],
 	"balanced": true,
 	"unweighted": false,

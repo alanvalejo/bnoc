@@ -1,61 +1,36 @@
 {
-	"directory": "../pynetviewer/output",
-	"output": "kpartite",
+	"directory": "../pynetviewer/output/",
+	"output": "bipartite_1",
 	"vertices": [
-		15,
-		15,
-		15,
-		15
+		150,
+		250
 	],
 	"schema": [
-		[0,1],
-		[1,2],
-		[2,3],
-		[3,1]
+		[0,1]
 	],
 	"communities": [
-		2,
-		2,
-		2,
-		2
+		3,
+		3
 	],
 	"x": [
-		8,
-		3,
-		0,
-		1
+		4,
+		4
 	],
 	"z": [
 		2,
-		2,
-		2,
 		2
 	],
-	"p": [
-		[0.5, 0.5],
-		[0.5, 0.5],
-		[0.5, 0.5],
-		[0.5, 0.5]
-	],
+	"p": null,
 	"dispersion":[
-		0.45,
-		0.45,
-		0.45,
-		0.45
+		0.4
 	],
 	"mu": [
-		0.55,
-		0.55,
-		0.55,
-		0.55
+		0.5
 	],
 	"noise": [
-		0.1,
-		0.1,
-		0.1,
 		0.1
 	],
-	"balanced": false,
+	"balanced": true,
 	"unweighted": false,
 	"normalize": true,
 	"show_timing": false,

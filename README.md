@@ -4,10 +4,12 @@
 
 BNOC is a tool for synthesizing bipartite, k-partite and heterogeneous network models with varied features representative of properties from real networks. Multiple input parameters can be manipulated to create networks of varying sizes and with distinct community patterns in terms of number, size, balance, edge distribution intra- and inter-communities, degree of overlapping and cohesion, and degree of noise in the connection patterns.
 
-**Download**
+> Warning: **The original implementation is deprecated. This software is a new version, more robust and fast. I.e
+>., there may be divergences between this version and the original algorithm.
+If you looking for the original version used in the paper don't hesitate to contact the authors.**
 
-- You can download Bnoc software in http://www.alanvalejo.com.br/software?name=bnoc
-- You can download PyNetViewer software in http://www.alanvalejo.com.br/software?name=pynetviewer
+> To help you visualize networks you can use the PyNetViewer software. You can download this software in:
+> https://github.com/alanvalejo/pynetviewer
 
 **Usage**
 
@@ -50,20 +52,28 @@ Parameters `-d`, `-m`, `-c`, `-x`, `-y` and `-z` are array of size L, where L is
 
 You can use a config file (.json) to specify the parameters, for instance:
 
-	$ python bnoc.py -cnf input/input_bipartite.json
+	$ python bnoc.py -cnf input/input_bipartite_1.json
+	$ python bnoc.py -cnf input/input_bipartite_2.json
+	$ python bnoc.py -cnf input/input_bipartite_3.json
 	$ python bnoc.py -cnf input/input_kpartite.json
 	$ python bnoc.py -cnf input/input_heterogeneous.json
 	
-Then, it is possible plot the network using the PyNetViewer. You can download PyNetViewer software in http://www.alanvalejo.com.br/software?name=pynetviewer
+Then, it is possible plot the network using the PyNetViewer.
 	
-	$ python viewer.py -cnf input/plot_bipartite_layout_1.json
-	$ python viewer.py -cnf input/plot_bipartite_layout_2.json
+	$ python viewer.py -cnf input/plot_bipartite_1_layout_1.json
+	$ python viewer.py -cnf input/plot_bipartite_1_layout_2.json
+	$ python viewer.py -cnf input/plot_bipartite_2.json
+	$ python viewer.py -cnf input/plot_bipartite_3.json
 	$ python viewer.py -cnf input/plot_kpartite.json
 	$ python viewer.py -cnf input/plot_heterogeneous.json
 
 Bipartite First Layout             | Bipartite Second Layout                 
 :---------------------------------:|:----------------------------------------:
-![](output/img_bnoc_bipartite_layout_1.png) | ![](output/img_bnoc_bipartite_layout_2.png)
+![](output/img_bnoc_bipartite_1_layout_1.png) | ![](output/img_bnoc_bipartite_1_layout_2.png)
+
+Bipartite First Layout             | Bipartite Second Layout                 
+:---------------------------------:|:----------------------------------------:
+![](output/img_bnoc_bipartite_2.png) | ![](output/img_bnoc_bipartite_3.png)
 
 Kpartite                          |  Heterogeneoous
 :---------------------------------:|:-------------------------------------:
@@ -91,7 +101,7 @@ Note, the bottleneck of the Bnoc execution time is to save the output in a text 
     $        Snippet       Time [m]       Time [s]
     $ Pre-processing            0.0         0.0223
     $     Build BNOC            0.0         2.4116
-    $           Save            1.0         1.0792
+    $           Save            1.0         0.2627
 
 **Install**
 
@@ -108,8 +118,6 @@ Note, the bottleneck of the Bnoc execution time is to save the output in a text 
 
     $ conda create --name bnoc python=3.7.2
     $ conda activate bnoc
-    $ conda install -c anaconda numpy
-    $ conda install -c conda-forge python-igraph
     $ conda install -c anaconda pyyaml
     $ conda install -c conda-forge pypdf2
     $ conda install -c anaconda scipy
@@ -120,14 +128,17 @@ Note, the bottleneck of the Bnoc execution time is to save the output in a text 
 
 **Contact**
 
-- Alan Valejo
-- Ph.D. at University of São Paulo (USP), Brazil
-- alanvalejo@gmail.com.br
+- Alan Valejo <alanvalejo@gmail.com.br>
+- Postdoctoral research fellow at the University of São Paulo (USP), Brazil
 
 **License and credits**
 
-- The GNU General Public License v3.0
 - Giving credit to the author by citing the papers [1]
+- The GNU General Public License v3.0
+- This program comes with ABSOLUTELY NO WARRANTY. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU
+- Owner or contributors are not liable for any direct, indirect, incidental,
+special, exemplary, or consequential damages, (such as loss of data or profits, and others) arising in any way out of the use of this software, even if advised of the possibility of such damage.
+- This program is free software and distributed in the hope that it will be useful: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
 
 **To-do list**
 

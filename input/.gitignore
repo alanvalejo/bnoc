@@ -3,9 +3,8 @@
 
 # But not these files...
 !.gitignore
-!input_bipartite.json
+!input_bipartite_1.json
+!input_bipartite_2.json
+!input_bipartite_3.json
 !input_kpartite.json
 !input_heterogeneous.json
-!plot_bipartite_layout_1.json
-!plot_kpartite.json
-!plot_heterogeneous.json
