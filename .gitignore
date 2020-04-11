@@ -1,4 +1,5 @@
 output
+.idea
 log
 *.pyc
 condaenv.txt
