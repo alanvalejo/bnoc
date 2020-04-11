@@ -4,9 +4,8 @@
 
 BNOC is a tool for synthesizing bipartite, k-partite and heterogeneous network models with varied features representative of properties from real networks. Multiple input parameters can be manipulated to create networks of varying sizes and with distinct community patterns in terms of number, size, balance, edge distribution intra- and inter-communities, degree of overlapping and cohesion, and degree of noise in the connection patterns.
 
-| **:warning: The original implementation is deprecated. This software is a new version, more robust and fast. I.e., there may be divergences between this version and the original algorithm.
-If you looking for the original version used in the paper don't hesitate to contact the authors.** |
-| --- |
+> **:warning: The original implementation is deprecated. This software is a new version, more robust and fast. I.e., there may be divergences between this version and the original algorithm.
+If you looking for the original version used in the paper don't hesitate to contact the authors.**
 
 > To help you visualize networks you can use the PyNetViewer software. You can download this software in:
 > https://github.com/alanvalejo/pynetviewer
