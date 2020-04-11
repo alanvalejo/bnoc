@@ -4,8 +4,9 @@
 
 BNOC is a tool for synthesizing bipartite, k-partite and heterogeneous network models with varied features representative of properties from real networks. Multiple input parameters can be manipulated to create networks of varying sizes and with distinct community patterns in terms of number, size, balance, edge distribution intra- and inter-communities, degree of overlapping and cohesion, and degree of noise in the connection patterns.
 
-> **:warning: The original implementation is deprecated. This software is a new version, more robust and fast. I.e., there may be divergences between this version and the original algorithm.
-If you looking for the original version used in the paper don't hesitate to contact the authors.**
+> **:warning: The original implementation (paper version) is deprecated. This software is a new version, more robust and
+> fast. I.e., there may be divergences between this version and the original algorithm. If you looking for the
+> original version used in the paper don't hesitate to contact the authors.**
 
 > To help you visualize networks you can use the PyNetViewer software. You can download this software in:
 > https://github.com/alanvalejo/pynetviewer
@@ -70,13 +71,13 @@ Bipartite First Layout             | Bipartite Second Layout
 :---------------------------------:|:----------------------------------------:
 ![](img/img_bnoc_bipartite_1_layout_1.png) | ![](img/img_bnoc_bipartite_1_layout_2.png)
 
-Bipartite First Layout             | Bipartite Second Layout                 
+Bipartite hard noise               | Bipartite many communities                 
 :---------------------------------:|:----------------------------------------:
-![](img/img_bnoc_bipartite_2.png) | ![](img/img_bnoc_bipartite_3.png)
+![](img/img_bnoc_bipartite_2.png)  | ![](img/img_bnoc_bipartite_3.png)
 
-Kpartite                          |  Heterogeneoous
+Kpartite                           |  Heterogeneoous
 :---------------------------------:|:-------------------------------------:
- ![](img/img_bnoc_kpartite.png) | ![](img/img_bnoc_heterogeneous.png)
+![](img/img_bnoc_kpartite.png)    | ![](img/img_bnoc_heterogeneous.png)
 
 **Scalability**
 
@@ -127,17 +128,25 @@ Note, the bottleneck of the Bnoc execution time is to save the output in a text 
 
 **Contact**
 
-- Alan Valejo <alanvalejo@gmail.com.br>
+- Alan Valejo
+- alanvalejo@gmail.com.br
+- www.alanvalejo.com.br
 - Postdoctoral research fellow at the University of São Paulo (USP), Brazil
 
 **License and credits**
 
 - Giving credit to the author by citing the papers [1]
 - The GNU General Public License v3.0
-- This program comes with ABSOLUTELY NO WARRANTY. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU
+- This program comes with ABSOLUTELY NO WARRANTY. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS
+ WITH YOU.
 - Owner or contributors are not liable for any direct, indirect, incidental,
-special, exemplary, or consequential damages, (such as loss of data or profits, and others) arising in any way out of the use of this software, even if advised of the possibility of such damage.
-- This program is free software and distributed in the hope that it will be useful: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
+special, exemplary, or consequential damages, (such as loss of data or profits, and others) arising in any way out of
+ the use of this software, even if advised of the possibility of such damage.
+- This program is free software and distributed in the hope that it will be useful: you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version. See the GNU General Public License for more
+   details. You should have received a copy of the GNU General Public License along with this program. If not, see
+    http://www.gnu.org/licenses/.
 
 **To-do list**
 

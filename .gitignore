@@ -3,3 +3,4 @@ output
 log
 *.pyc
 condaenv.txt
+.gitignore

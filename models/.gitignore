@@ -1,0 +1,8 @@
+# Ignore everything
+*
+
+# But not these files...
+!.gitignore
+!args.py
+!helper.py
+!timing.py

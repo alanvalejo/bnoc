@@ -9,18 +9,33 @@ Copyright (C) 2017 Alan Valejo <alanvalejo@gmail.com> All rights reserved
 Copyright (C) 2017 Luzia Romanetto <luziaromanetto@gmail.com> All rights reserved
 Copyright (C) 2017 Fabiana Góes <fabii.goes@gmail.com> All rights reserved
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
+BNOC is a tool for synthesizing bipartite, k-partite and heterogeneous network models with varied features
+representative of properties from real networks. Multiple input parameters can be manipulated to create networks of
+varying sizes and with distinct community patterns in terms of number, size, balance, edge distribution intra- and
+inter-communities, degree of overlapping and cohesion, and degree of noise in the connection patterns.
 
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+The original implementation (paper version) is deprecated. This software is a new version, more robust and fast.
+I.e., there may be divergences between this version and the original algorithm. If you looking for the original
+version used in the paper don't hesitate to contact the authors.
 
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+This program comes with ABSOLUTELY NO WARRANTY. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS
+WITH YOU.
+
+Owner or contributors are not liable for any direct, indirect, incidental, special, exemplary, or consequential
+damages, (such as loss of data or profits, and others) arising in any way out of the use of this software,
+even if advised of the possibility of such damage.
+
+This program is free software and distributed in the hope that it will be useful: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by the Free Software Foundation,
+either version 3 of the License, or (at your option) any later version. See the GNU General Public License for more
+details. You should have received a copy of the GNU General Public License along with this program. If not,
+see http://www.gnu.org/licenses/.
+
+Giving credit to the author by citing the papers [1]
+
+.. [1] Valejo, Alan and Goes, F. and Romanetto, L. M. and Oliveira, Maria C. F. and Lopes, A. A., A benchmarking tool
+for the generation of bipartite network models with overlapping communities, in Knowledge and information systems,
+p. 1-29, 2019 doi: https://doi.org/10.1007/s10115-019-01411-9
 """
 
 import random

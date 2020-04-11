@@ -5,20 +5,22 @@
 Helper
 =====================================================
 
-Copyright (C) 2016 Alan Valejo <alanvalejo@gmail.com> All rights reserved
+Copyright (C) 2017 Alan Valejo <alanvalejo@gmail.com> All rights reserved
 
-This file is part of Helper.
+This program comes with ABSOLUTELY NO WARRANTY. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS
+WITH YOU.
 
-Helper is a free software and non-commercial use only: you can be use it for
-creating unlimited applications, distribute in binary or object form only,
-modify source-code and distribute modifications (derivative works). Please,
-giving credit to the author by citing the papers. License will expire in 2018,
-July, and will be renewed.
-
-Owner or contributors are not liable for any direct, indirect, incidental,
-special, exemplary, or consequential damages, (such as loss of data or profits,
-and others) arising in any way out of the use of this software,
+Owner or contributors are not liable for any direct, indirect, incidental, special, exemplary, or consequential
+damages, (such as loss of data or profits, and others) arising in any way out of the use of this software,
 even if advised of the possibility of such damage.
+
+This program is free software and distributed in the hope that it will be useful: you can redistribute it and/or
+modify it under the terms of the GNU General Public License as published by the Free Software Foundation,
+either version 3 of the License, or (at your option) any later version. See the GNU General Public License for more
+details. You should have received a copy of the GNU General Public License along with this program. If not,
+see http://www.gnu.org/licenses/.
+
+Giving credit to the author by citing the papers
 """
 
 import numpy
