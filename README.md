@@ -1,6 +1,6 @@
 ```
 Warning
-------
+---
 The original implementation (i.e. paper version [1]) is deprecated.
 This software is a new version, more robust and fast.
 There may be divergences between this version and the original algorithm.
