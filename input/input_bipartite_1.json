@@ -1,5 +1,5 @@
 {
-	"directory": "../pynetviewer/output/",
+	"directory": "output",
 	"output": "bipartite_1",
 	"vertices": [
 		150,

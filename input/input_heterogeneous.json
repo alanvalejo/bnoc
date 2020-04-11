@@ -1,5 +1,5 @@
 {
-	"directory": "../pynetviewer/output",
+	"directory": "output",
 	"output": "heterogeneous",
 	"vertices": [
 		15,

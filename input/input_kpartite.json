@@ -1,5 +1,5 @@
 {
-	"directory": "../pynetviewer/output",
+	"directory": "output",
 	"output": "kpartite",
 	"vertices": [
 		15,
