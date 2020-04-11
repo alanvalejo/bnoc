@@ -109,12 +109,12 @@ Note, the bottleneck of the Bnoc execution time is to save the output in a text 
     
     $ pip install -r requirements.txt
 
-> Anaconda env
+> Or Anaconda env
 
     $ conda env create -f environment.yml
     $ conda activate bnoc
 
-> Anaconda create
+> Or Anaconda create
 
     $ conda create --name bnoc python=3.7.2
     $ conda activate bnoc
