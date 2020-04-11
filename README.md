@@ -69,15 +69,15 @@ Then, it is possible plot the network using the PyNetViewer.
 
 Bipartite First Layout             | Bipartite Second Layout                 
 :---------------------------------:|:----------------------------------------:
-![](output/img_bnoc_bipartite_1_layout_1.png) | ![](output/img_bnoc_bipartite_1_layout_2.png)
+![](img/img_bnoc_bipartite_1_layout_1.png) | ![](img/img_bnoc_bipartite_1_layout_2.png)
 
 Bipartite First Layout             | Bipartite Second Layout                 
 :---------------------------------:|:----------------------------------------:
-![](output/img_bnoc_bipartite_2.png) | ![](output/img_bnoc_bipartite_3.png)
+![](img/img_bnoc_bipartite_2.png) | ![](img/img_bnoc_bipartite_3.png)
 
 Kpartite                          |  Heterogeneoous
 :---------------------------------:|:-------------------------------------:
- ![](output/img_bnoc_kpartite.png) | ![](output/img_bnoc_heterogeneous.png)
+ ![](img/img_bnoc_kpartite.png) | ![](img/img_bnoc_heterogeneous.png)
 
 **Scalability**
 

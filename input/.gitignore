@@ -8,3 +8,5 @@
 !input_bipartite_3.json
 !input_kpartite.json
 !input_heterogeneous.json
+!input_bipartite_time_ncol.json
+!input_bipartite_time_npy.json
