@@ -65,41 +65,41 @@ Then, it is possible to plot the network using the PyNetViewer using a bipartite
 	
     $ python viewer.py -cnf input/plot_bipartite_1_layout_1.json
 
-![](img/img_bnoc_bipartite_1_layout_1.png)
+![](img/bipartite-1-layout-1.png)
 
 The same network with standard layout. Only overlapping vertices are highlighted.
 
     $ python viewer.py -cnf input/plot_bipartite_1_layout_2.json
 	
-![](img/img_bnoc_bipartite_1_layout_2.png)
+![](img/bipartite-1-layout-2.png)
 
 A bipartite network with hard level of noise, unbalanced community sizes and no overlapping.
 
     $ python bnoc.py -cnf input/input_bipartite_2.json
     $ python viewer.py -cnf input/plot_bipartite_2.json
     
-![](img/img_bnoc_bipartite_2.png) 
+![](img/bipartite-2.png) 
     
 A bipartite network with small level of noise, balanced community sizes, no overlapping and many communities.    
     
 	$ python bnoc.py -cnf input/input_bipartite_3.json
 	$ python viewer.py -cnf input/plot_bipartite_3.json
 	
-![](img/img_bnoc_bipartite_3.png)	
+![](img/bipartite-3.png)	
 	
 A k-partite network with k=4 and overlapping.
 
 	$ python bnoc.py -cnf input/input_kpartite.json
 	$ python viewer.py -cnf input/plot_kpartite.json
 	
-![](img/img_bnoc_kpartite.png) 	
+![](img/kpartite.png) 	
 	
 A heterogeneous network with k=3 layers and no overlapping.
 	
 	$ python bnoc.py -cnf input/input_heterogeneous.json
 	$ python viewer.py -cnf input/plot_heterogeneous.json
 
-![](img/img_bnoc_heterogeneous.png)
+![](img/heterogeneous.png)
 
 **Scalability**
 

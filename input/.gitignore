@@ -3,10 +3,10 @@
 
 # But not these files...
 !.gitignore
-!input_bipartite_1.json
-!input_bipartite_2.json
-!input_bipartite_3.json
-!input_kpartite.json
-!input_heterogeneous.json
-!input_bipartite_time_ncol.json
-!input_bipartite_time_npy.json
+!bipartite-1.json
+!bipartite-2.json
+!bipartite-3.json
+!kpartite.json
+!heterogeneous.json
+!bipartite-time-ncol.json
+!bipartite-time-npy.json

@@ -1,50 +1,50 @@
 {
 	"directory": "output",
-	"output": "bipartite_ncol",
+	"output": "bipartite-3",
 	"vertices": [
-		10000,
-		10000
+		1550,
+		1550
 	],
 	"schema": [
 		[0,1]
 	],
 	"communities": [
-		20,
-		20
+		15,
+		15
 	],
 	"x": [
-		4,
-		4
+		0,
+		0
 	],
 	"z": [
-		2,
-		2
+		0,
+		0
 	],
 	"p": null,
 	"dispersion":[
-		0.1
+		0.4
 	],
 	"mu": [
-		0.1
+		0.4
 	],
 	"noise": [
-		0.0
+		0.03
 	],
 	"balanced": true,
 	"unweighted": false,
 	"normalize": true,
-	"show_timing": true,
+	"show_timing": false,
 	"save_timing_csv": false,
 	"save_timing_json": false,
 	"unique_key": false,
 	"hard": true,
 	"output_npy": false,
 	"output_text": true,
-	"save_type": false,
+	"save_type": true,
 	"save_gml": false,
 	"save_arff": false,
 	"save_ncol": true,
-	"save_cover": false,
-	"save_membership": false,
-	"save_overlap": false
+	"save_cover": true,
+	"save_membership": true,
+	"save_overlap": true
 }

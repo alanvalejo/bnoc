@@ -1,6 +1,6 @@
 {
 	"directory": "output",
-	"output": "bipartite_npy",
+	"output": "bipartite-time-npy",
 	"vertices": [
 		10000,
 		10000

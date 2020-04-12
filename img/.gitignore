@@ -3,9 +3,9 @@
 
 # But not these files...
 !.gitignore
-!img_bnoc_bipartite_1_layout_1.png
-!img_bnoc_bipartite_1_layout_2.png
-!img_bnoc_bipartite_2.png
-!img_bnoc_bipartite_3.png
-!img_bnoc_kpartite.png
-!img_bnoc_heterogeneous.png
+!bipartite-1-layout-1.png
+!bipartite-1-layout-2.png
+!bipartite-2.png
+!bipartite-3.png
+!kpartite.png
+!heterogeneous.png
