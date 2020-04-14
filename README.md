@@ -23,6 +23,7 @@ BNOC is a tool for synthesizing bipartite, k-partite and heterogeneous network m
 | ------------------ | ---------------------------- | ------------------------ | ------------------------------------------------------------- |
 | -dir --directory   | str [DIR]                    | '.'                      | directory of output file                                      |
 | -out --output      | str [FILE]                   | 'out'                    | filename                                                      |
+| -o --output_objects| boolean                      | False                    | return python objects dictionary and don't write files        |
 | -cnf --conf        | str [FILE]                   | None                     | Input parameters in .json format                              |
 | -v, --vertices     | int array                    | [10, 10, 10]             | number of vertices for each layer                             |
 | -d, --dispersion   | float array                  | [0.3, 0.3, 0.3]          | dispersion of gamma mixing distribution for each layer        |
@@ -49,7 +50,6 @@ BNOC is a tool for synthesizing bipartite, k-partite and heterogeneous network m
 | --save_timing_json | boolean                      | False                    | save timing in json                                           |
 | --save_timing_csv  | boolean                      | False                    | save timing in csv                                            |
 | --unique_key       | boolean                      | False                    | output date and time as unique_key                            |
-| -o --output_objects| boolean                      | False                    | return python objects dictionary and don't write files        |
 
 Parameters `-d`, `-m`, `-c`, `-x`, `-y` and `-z` are arrays of size L, where L is the number of layers.
 Parameter `p` is an array of array the probability of vertices in each community for each layer. Parameter `e` define the scheme of the networks, i.e., the connections type.
