@@ -110,6 +110,13 @@
 		"default": 1,
 		"help": "number of vertices of overlapping communities"
 	},
+	"o": {
+		"long": "output_objects",
+		"required": false,
+		"dest": "output_objects",
+		"action": "store_true",
+		"help": "return python objects dictionary and don't write files"
+	},
 	"p": {
 		"long": "p",
 		"required": false,
