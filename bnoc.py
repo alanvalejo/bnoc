@@ -56,7 +56,8 @@ from models.timing import Timing
 __maintainer__ = 'Alan Valejo'
 __email__ = 'alanvalejo@gmail.com, luziaromanetto@gmail.com'
 __author__ = 'Alan Valejo, Luzia Romanetto, Fabiana Góes'
-__credits__ = ['Alan Valejo', 'Luzia Romanetto', 'Fabiana Góes', 'Maria Cristina Ferreira de Oliveira', 'Alneu de Andrade Lopes']
+__credits__ = ['Alan Valejo', 'Luzia Romanetto', 'Fabiana Góes', 'Maria Cristina Ferreira de Oliveira',
+               'Alneu de Andrade Lopes']
 __homepage__ = 'https://github.com/alanvalejo/bnoc'
 __license__ = 'GNU.GPL.v3'
 __docformat__ = 'markdown en'
@@ -66,8 +67,8 @@ __date__ = '2018-08-08'
 global max_itr
 max_itr = 1000
 
-# BNOC app
-class bnoc(object):
+
+class bnoc(object):  # BNOC app
 
     def __init__(self):
         """ Initialize the bnoc app
@@ -154,7 +155,7 @@ class bnoc(object):
         # Removing a fraction of inter-community edges [numpy.random.seed(1)]
         num_samples = numpy.count_nonzero(matrix)
         Z = [False]
-        while not any(Z): # while all elements are 'False'
+        while not any(Z):  # while all elements are 'False'
             Z = numpy.random.rand(num_samples) < noise
             # Z = numpy.random.uniform(0.0, 1.0, num_samples) < noise
         Y = matrix[matrix > 0]
@@ -166,7 +167,7 @@ class bnoc(object):
         # Adding a fraction of intra-community edges
         num_samples = numpy.count_nonzero(matrix == 0)
         Z = [False]
-        while not any(Z): # while all elements are 'False'
+        while not any(Z):  # while all elements are 'False'
             # Z = numpy.random.rand(num_samples) < noise
             Z = numpy.random.uniform(0.0, 1.0, num_samples) < noise
         Y = matrix[matrix == 0]
@@ -186,7 +187,7 @@ class bnoc(object):
         """
 
         if self.options.p is None:
-            self.options.p = empty_lists = [[] for i in range(self.layers)]
+            self.options.p = [[] for i in range(self.layers)]  # empty_lists
         for layer in range(self.layers):
             avg = float(1.0 / self.options.communities[layer])
             self.options.p[layer] = [avg] * self.options.communities[layer]
@@ -200,7 +201,10 @@ class bnoc(object):
         self.membership = [[] for i in range(self.layers)]
         for layer in range(self.layers):
             for itr in range(max_itr):
-                self.membership[layer] = numpy.random.choice(self.options.communities[layer], size=self.options.vertices[layer], replace=True, p=self.options.p[layer])
+                self.membership[layer] = numpy.random.choice(
+                    self.options.communities[layer], size=self.options.vertices[layer],
+                    replace=True, p=self.options.p[layer]
+                )
                 self.membership[layer] = sorted(self.membership[layer])
                 unique_row = numpy.unique(self.membership[layer])
                 if len(unique_row) == self.options.communities[layer]:
@@ -226,7 +230,10 @@ class bnoc(object):
         self.overlap = [[] for i in range(self.layers)]
         if self.options.x is not None and sum(self.options.x) > 0:
             for layer in range(self.layers):
-                self.overlap[layer] = numpy.random.choice(range(self.start_end[layer][0], self.start_end[layer][1] + 1), self.options.x[layer], replace=False)
+                self.overlap[layer] = numpy.random.choice(
+                    range(self.start_end[layer][0], self.start_end[layer][1] + 1),
+                    self.options.x[layer], replace=False
+                )
                 for vertex in self.overlap[layer]:
                     comms = copy.copy(self.unique_comms[layer])
                     comms.remove(self.membership[layer][vertex - self.start_end[layer][0]])
@@ -326,7 +333,7 @@ class bnoc(object):
                             else:
                                 weight = 1.0
                             edgelist += '%s %s %s\n' % (u, v, weight)
-                            dict_edges[(u, v)] = float(weight)
+                            dict_edges[(u, v)] = float(weight)  # unused variable TTM
 
         # Save ncol
         if self.options.save_ncol:
@@ -346,10 +353,10 @@ class bnoc(object):
 
         # Save type
         if self.options.save_type:
-            type = []
+            type_ = []
             for layer, vertices in enumerate(self.options.vertices):
-                type.extend([layer] * vertices)
-            numpy.save(output + '-type.npy', type)
+                type_.extend([layer] * vertices)
+            numpy.save(output + '-type.npy', type_)
 
         # Save overlap
         if self.options.save_overlap:
@@ -371,6 +378,18 @@ class bnoc(object):
                         result[item].append(idx)
             numpy.save(output + '-membership.npy', result)
 
+    def return_objects(self, info_dict):
+        return dict(
+            info=info_dict,
+            matrices=self.matrices,
+            overlap=self.overlap,
+            cover=self.cover,
+            extra=dict(
+                vertices=self.options.vertices,
+                layers=self.layers,
+            )
+        )
+
     def build(self):
         """ Runs the application. """
 
@@ -389,33 +408,35 @@ class bnoc(object):
         # Save
         with self.timing.timeit_context_add('Save'):
             # Save json inf file
+            d = {
+                'output': self.options.output,
+                'directory': self.options.directory,
+                'extension': 'ncol',
+                'vertices': self.options.vertices,
+                'communities': self.options.communities,
+                'x': self.options.x,
+                'z': self.options.z,
+                'p': self.options.p,
+                'balanced': self.options.balanced,
+                'd': self.options.dispersion,
+                'mu': self.options.mu,
+                'noise': self.options.noise,
+                'unweighted': self.options.unweighted,
+                'normalize': self.options.normalize,
+                'conf': self.options.conf,
+                'show_timing': self.options.show_timing,
+                'save_timing_csv': self.options.save_timing_csv,
+                'save_timing_json': self.options.save_timing_json,
+                'unique_key': self.options.unique_key, 'edges': 0
+            }
+
+            if self.options.output_objects:
+                return self.return_objects(d)
             output = self.options.output
             with open(output + '-inf.json', 'w+') as f:
-                d = {
-                    'output': self.options.output
-                    , 'directory': self.options.directory
-                    , 'extension': 'ncol'
-                    , 'vertices': self.options.vertices
-                    , 'communities': self.options.communities
-                    , 'x': self.options.x
-                    , 'z': self.options.z
-                    , 'p': self.options.p
-                    , 'balanced': self.options.balanced
-                    , 'd': self.options.dispersion
-                    , 'mu': self.options.mu
-                    , 'noise': self.options.noise
-                    , 'unweighted': self.options.unweighted
-                    , 'normalize': self.options.normalize
-                    , 'conf': self.options.conf
-                    , 'show_timing': self.options.show_timing
-                    , 'save_timing_csv': self.options.save_timing_csv
-                    , 'save_timing_json': self.options.save_timing_json
-                    , 'unique_key': self.options.unique_key, 'edges': 0
-                }
                 for matrix in self.matrices:
                     d['edges'] += numpy.count_nonzero(matrix)
                 json.dump(d, f, indent=4)
-
             if self.options.output_npy:
                 self.save_npy(output)
             if self.options.output_text:
@@ -427,6 +448,7 @@ class bnoc(object):
             self.timing.save_csv(output + '-timing.csv')
         if self.options.save_timing_json:
             self.timing.save_json(output + '-timing.csv')
+
 
 def main():
     """ Main entry point for the application when run from the command line. """
