@@ -429,15 +429,14 @@ class bnoc(object):  # BNOC app
                 'save_timing_json': self.options.save_timing_json,
                 'unique_key': self.options.unique_key, 'edges': 0
             }
-            if not self.options.output_objects:
-                output = self.options.output
-                with open(output + '-inf.json', 'w+') as f:
-                    for matrix in self.matrices:
-                        d['edges'] += numpy.count_nonzero(matrix)
-                    json.dump(d, f, indent=4)
 
             if self.options.output_objects:
                 return self.return_objects(d)
+            output = self.options.output
+            with open(output + '-inf.json', 'w+') as f:
+                for matrix in self.matrices:
+                    d['edges'] += numpy.count_nonzero(matrix)
+                json.dump(d, f, indent=4)
             if self.options.output_npy:
                 self.save_npy(output)
             if self.options.output_text:

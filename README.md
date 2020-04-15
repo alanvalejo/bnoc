@@ -63,7 +63,7 @@ A bipartite network with communities, overlapping and a small level of noise:
 	$ python bnoc.py -cnf input/bipartite-1.json
 
 Then, it is possible to plot the network using the PyNetViewer using a bipartite layout. Line widths reflect the
- corresponding edge weights; red squares depict overlapping vertices; and colored circles indicate non-overlapping vertices and their assigned community.
+ corresponding edge weights; red squares depict overlapping vertices; and colored circles indicate non-overlapping vertices and their assigned community (layout file is in the pynetviewer repo).
 	
     $ python pynetviewer.py -cnf input/bipartite-1_layout_1.json
 
