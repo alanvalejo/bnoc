@@ -17,22 +17,19 @@ BNOC is a tool for synthesizing bipartite, k-partite and heterogeneous network m
 
 **Usage**
 
-BNOC may operate in two modes: 1. using explicit command line parameters (or options) or 2. using a JSON config file (JavaScript Object Notation).
-
-**Command line parameters**
-
-    $ python bnoc.py [options]
+	$ python bnoc.py [options]
 
 | Option             | Domain                       | Default                  | Description                                                   |
 | ------------------ | ---------------------------- | ------------------------ | ------------------------------------------------------------- |
 | -dir --directory   | str [DIR]                    | '.'                      | directory of output file                                      |
 | -out --output      | str [FILE]                   | 'out'                    | filename                                                      |
+| -o --output_objects| boolean                      | False                    | return python objects dictionary and don't write files        |
 | -cnf --conf        | str [FILE]                   | None                     | Input parameters in .json format                              |
 | -v, --vertices     | int array                    | [10, 10, 10]             | number of vertices for each layer                             |
 | -d, --dispersion   | float array                  | [0.3, 0.3, 0.3]          | dispersion of gamma mixing distribution for each layer        |
 | -m, --mu           | float array                  | [0.3, 0.3, 0.3]          | dispersion or range of wieght values for each layer           |
 | -c, --communities  | int array                    | [2, 2, 2]                | number of communities                                         |
-| -x, --x            | int array                    | [1, 1, 1]                | number of vertices from V1 that participate of overlapin      |
+| -x, --x            | int array                    | [1, 1, 1]                | number of vertices from V1 that participate of overlaping      |
 | -z, --z            | int array                    | [2, 2, 2]                | number of vertices of overlapping communities                 |
 | -p, --p            | int array of array           | [[0.5, 0.5], [0.5, 0.5]] | probability of vertices in each community for each layer      |
 | -e, --scheme       | int array of array           | [[0, 1], [1,2]]          | connections type                                              |
@@ -43,7 +40,7 @@ BNOC may operate in two modes: 1. using explicit command line parameters (or opt
 | -hd, --hard        | boolean                      | False                    | hard noise                                                    |
 | --save_npy         | boolean                      | False                    | save numpy object                                             |
 | --save_ncol        | boolean                      | False                    | save ncol format                                              |
-| --save_gmal        | boolean                      | False                    | save gml format                                               |
+| --save_gml         | boolean                      | False                    | save gml format                                               |
 | --save_arff        | boolean                      | False                    | save arff format                                              |
 | --save_cover       | boolean                      | False                    | save communities in cover form                                |
 | --save_membership  | boolean                      | False                    | save communities in a membership format                       |
@@ -54,19 +51,8 @@ BNOC may operate in two modes: 1. using explicit command line parameters (or opt
 | --save_timing_csv  | boolean                      | False                    | save timing in csv                                            |
 | --unique_key       | boolean                      | False                    | output date and time as unique_key                            |
 
-Parameters `-d`, `-m`, `-c`, `-x`, `-y` and `-z` are array of size L, where L is the number of layer. Parameter `p` is an array of array the probability of vertices in each community for each layer. Parameter `e` define the scheme of the networks, i.e., the connections type.
-
-**JSON option**
-
-    $ python bnoc.py -cnf options.json
-
-JSON format: Data is in name/value pairs, separated by commas, curly braces hold objects and square brackets hold arrays.
-
-```javascript
-{
-    "option": "value"
-}
-```
+Parameters `-d`, `-m`, `-c`, `-x`, `-y` and `-z` are arrays of size L, where L is the number of layers.
+Parameter `p` is an array of array the probability of vertices in each community for each layer. Parameter `e` define the scheme of the networks, i.e., the connections type.
 
 **Examples**
 
@@ -74,45 +60,46 @@ You can use a config file (.json) to specify the parameters, for instance:
 
 A bipartite network with communities, overlapping and a small level of noise:
 
-	$ python bnoc.py -cnf input/bipartite_1.json
+	$ python bnoc.py -cnf input/bipartite-1.json
 
-Then, it is possible to plot the network using the PyNetViewer using a bipartite layout. Line widths reflect the corresponding edge weights; red squares depict overlapping vertices; and colored circles indicate non-overlapping vertices and their assigned community.
+Then, it is possible to plot the network using the PyNetViewer using a bipartite layout. Line widths reflect the
+ corresponding edge weights; red squares depict overlapping vertices; and colored circles indicate non-overlapping vertices and their assigned community (layout file is in the pynetviewer repo).
 	
-    $ python pynetviewer.py -cnf input/bipartite_1_layout_1.json
+    $ python pynetviewer.py -cnf input/bipartite-1_layout_1.json
 
 ![](img/bipartite-1-layout-1.png)
 
 The same network with standard layout. Only overlapping vertices are highlighted.
 
-    $ python pynetviewer.py -cnf input/bipartite_1_layout_2.json
+    $ python pynetviewer.py -cnf input/plot_bipartite-1_layout_2.json
 	
 ![](img/bipartite-1-layout-2.png)
 
 A bipartite network with hard level of noise, unbalanced community sizes and no overlapping.
 
-    $ python bnoc.py -cnf input/bipartite_2.json
-    $ python pynetviewer.py -cnf input/bipartite_2.json
+    $ python bnoc.py -cnf input/bipartite-2.json
+    $ python pynetviewer.py -cnf input/plot_bipartite-2.json
     
 ![](img/bipartite-2.png) 
     
 A bipartite network with small level of noise, balanced community sizes, no overlapping and many communities.    
     
-	$ python bnoc.py -cnf input/bipartite_3.json
-	$ python pynetviewer.py -cnf input/bipartite_3.json
+	$ python bnoc.py -cnf input/bipartite-3.json
+	$ python pynetviewer.py -cnf input/plot_bipartite-3.json
 	
 ![](img/bipartite-3.png)	
 	
 A k-partite network with k=4 and overlapping.
 
 	$ python bnoc.py -cnf input/kpartite.json
-	$ python pynetviewer.py -cnf input/kpartite.json
+	$ python pynetviewer.py -cnf input/plot_kpartite.json
 	
 ![](img/kpartite.png) 	
 	
 A heterogeneous network with k=3 layers and no overlapping.
 	
 	$ python bnoc.py -cnf input/heterogeneous.json
-	$ python pynetviewer.py -cnf input/heterogeneous.json
+	$ python pynetviewer.py -cnf input/plot_heterogeneous.json
 
 ![](img/heterogeneous.png)
 
@@ -159,6 +146,16 @@ Note, the bottleneck of the Bnoc execution time is to save the output in a text 
     $ conda install -c conda-forge pypdf2
     $ conda install -c anaconda scipy
 
+**Testing**
+
+To check that routines are (probably) working properly:
+
+    $ make test
+
+Writing files is tested by exercising the script mode described in the *Usage* section above.
+Created objects should probably be better tested, as directions of Bnoc usage.
+File I/O can be tested by e.g. appropriatelly replacing the `bnoc.open` function.
+
 **Known Bugs**
 
 - Please contact the author for problems and bug report.
@@ -174,10 +171,16 @@ Note, the bottleneck of the Bnoc execution time is to save the output in a text 
 
 - Giving credit to the author by citing the papers [1]
 - The GNU General Public License v3.0
-- This program comes with ABSOLUTELY NO WARRANTY. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.
+- This program comes with ABSOLUTELY NO WARRANTY. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS
+ WITH YOU.
 - Owner or contributors are not liable for any direct, indirect, incidental,
-special, exemplary, or consequential damages, (such as loss of data or profits, and others) arising in any way out of the use of this software, even if advised of the possibility of such damage.
-- This program is free software and distributed in the hope that it will be useful: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
+special, exemplary, or consequential damages, (such as loss of data or profits, and others) arising in any way out of
+ the use of this software, even if advised of the possibility of such damage.
+- This program is free software and distributed in the hope that it will be useful: you can redistribute it and/or
+ modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either
+  version 3 of the License, or (at your option) any later version. See the GNU General Public License for more
+   details. You should have received a copy of the GNU General Public License along with this program. If not, see
+    http://www.gnu.org/licenses/.
 
 **To-do list**
 
