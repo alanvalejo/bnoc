@@ -28,7 +28,7 @@
 		"nargs": "?",
 		"action": "store",
 		"default": null,
-		"help": "config file name"
+		"help": "config file name (check repo https://github.com/alanvalejo/bnoc for example files)"
 	},
 	"v": {
 		"long": "vertices",
