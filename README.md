@@ -17,7 +17,11 @@ BNOC is a tool for synthesizing bipartite, k-partite and heterogeneous network m
 
 **Usage**
 
-	$ python bnoc.py [options]
+BNOC may operate in two modes: 1. using explicit command line parameters (or options) or 2. using a JSON config file (JavaScript Object Notation).
+
+**Command line parameters**
+
+    $ python bnoc.py [options]
 
 | Option             | Domain                       | Default                  | Description                                                   |
 | ------------------ | ---------------------------- | ------------------------ | ------------------------------------------------------------- |
@@ -52,52 +56,63 @@ BNOC is a tool for synthesizing bipartite, k-partite and heterogeneous network m
 
 Parameters `-d`, `-m`, `-c`, `-x`, `-y` and `-z` are array of size L, where L is the number of layer. Parameter `p` is an array of array the probability of vertices in each community for each layer. Parameter `e` define the scheme of the networks, i.e., the connections type.
 
+**JSON option**
+
+    $ python bnoc.py -cnf options.json
+
+JSON format: Data is in name/value pairs, separated by commas, curly braces hold objects and square brackets hold arrays.
+
+```javascript
+{
+    "option": "value"
+}
+```
+
 **Examples**
 
 You can use a config file (.json) to specify the parameters, for instance:
 
 A bipartite network with communities, overlapping and a small level of noise:
 
-	$ python bnoc.py -cnf input/input_bipartite_1.json
+	$ python bnoc.py -cnf input/bipartite_1.json
 
-Then, it is possible to plot the network using the PyNetViewer using a bipartite layout. Line widths reflect the
- corresponding edge weights; red squares depict overlapping vertices; and colored circles indicate non-overlapping vertices and their assigned community.
+Then, it is possible to plot the network using the PyNetViewer using a bipartite layout. Line widths reflect the corresponding edge weights; red squares depict overlapping vertices; and colored circles indicate non-overlapping vertices and their assigned community.
 	
-    $ python viewer.py -cnf input/plot_bipartite_1_layout_1.json
+    $ python pynetviewer.py -cnf input/bipartite_1_layout_1.json
 
 ![](img/bipartite-1-layout-1.png)
 
 The same network with standard layout. Only overlapping vertices are highlighted.
 
-    $ python viewer.py -cnf input/plot_bipartite_1_layout_2.json
+    $ python pynetviewer.py -cnf input/bipartite_1_layout_2.json
 	
 ![](img/bipartite-1-layout-2.png)
 
 A bipartite network with hard level of noise, unbalanced community sizes and no overlapping.
 
-    $ python bnoc.py -cnf input/input_bipartite_2.json
-    $ python viewer.py -cnf input/plot_bipartite_2.json
+    $ python bnoc.py -cnf input/bipartite_2.json
+    $ python pynetviewer.py -cnf input/bipartite_2.json
     
 ![](img/bipartite-2.png) 
     
 A bipartite network with small level of noise, balanced community sizes, no overlapping and many communities.    
     
-	$ python bnoc.py -cnf input/input_bipartite_3.json
-	$ python viewer.py -cnf input/plot_bipartite_3.json
+	$ python bnoc.py -cnf input/bipartite_3.json
+	$ python pynetviewer.py -cnf input/bipartite_3.json
 	
 ![](img/bipartite-3.png)	
 	
 A k-partite network with k=4 and overlapping.
 
-	$ python bnoc.py -cnf input/input_kpartite.json
-	$ python viewer.py -cnf input/plot_kpartite.json
+	$ python bnoc.py -cnf input/kpartite.json
+	$ python pynetviewer.py -cnf input/kpartite.json
 	
 ![](img/kpartite.png) 	
 	
 A heterogeneous network with k=3 layers and no overlapping.
 	
-	$ python bnoc.py -cnf input/input_heterogeneous.json
-	$ python viewer.py -cnf input/plot_heterogeneous.json
+	$ python bnoc.py -cnf input/heterogeneous.json
+	$ python pynetviewer.py -cnf input/heterogeneous.json
 
 ![](img/heterogeneous.png)
 
@@ -159,16 +174,10 @@ Note, the bottleneck of the Bnoc execution time is to save the output in a text 
 
 - Giving credit to the author by citing the papers [1]
 - The GNU General Public License v3.0
-- This program comes with ABSOLUTELY NO WARRANTY. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS
- WITH YOU.
+- This program comes with ABSOLUTELY NO WARRANTY. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS WITH YOU.
 - Owner or contributors are not liable for any direct, indirect, incidental,
-special, exemplary, or consequential damages, (such as loss of data or profits, and others) arising in any way out of
- the use of this software, even if advised of the possibility of such damage.
-- This program is free software and distributed in the hope that it will be useful: you can redistribute it and/or
- modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either
-  version 3 of the License, or (at your option) any later version. See the GNU General Public License for more
-   details. You should have received a copy of the GNU General Public License along with this program. If not, see
-    http://www.gnu.org/licenses/.
+special, exemplary, or consequential damages, (such as loss of data or profits, and others) arising in any way out of the use of this software, even if advised of the possibility of such damage.
+- This program is free software and distributed in the hope that it will be useful: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version. See the GNU General Public License for more details. You should have received a copy of the GNU General Public License along with this program. If not, see http://www.gnu.org/licenses/.
 
 **To-do list**
 
