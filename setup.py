@@ -17,9 +17,9 @@ setup(
     # Versions should comply with PEP440.  For a discussion on single-sourcing
     # the version across setup.py and the project code, see
     # https://packaging.python.org/en/latest/single_source_version.html
-    version='0.01',
+    version='0.0.1',
 
-    description='synthesis of bipartite networks',
+    description='synthesis of bipartite, k-partite and heterogeneous networks',
     long_description=long_description,
 
     # The project's main homepage.
@@ -58,7 +58,8 @@ setup(
     ],
 
     # What does your project relate to?
-    keywords='network theory, complex networks',
+    keywords='network theory, complex networks, bipartite networks, k-partite networks, heterogeneous networks,\
+             synthetic networks, community structure, social networks',
 
     # You can just specify the packages manually here if your project is
     # simple. Or you can use find_packages().
@@ -85,10 +86,11 @@ setup(
     #package_data={
     #    'sample': ['package_data.dat'],
     #},
-    package_data={
-        'tagger': ['measures/text/brill_taggerT2M1'],
-    },
-    include_package_data=True,
+    # TODO: Isso é necessário instalar????
+    # package_data={
+    #     'tagger': ['measures/text/brill_taggerT2M1'],
+    # },
+    # include_package_data=True,
 
     # Although 'package_data' is the preferred approach, in some case you may
     # need to place data files outside of your packages.
