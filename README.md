@@ -215,8 +215,8 @@ If not, see http://www.gnu.org/licenses/.
 **References**
 
 > [1] Valejo, Alan and Goes, F. and Romanetto, L. M. and Oliveira, Maria C. F. and Lopes, A. A., A benchmarking tool 
->for the generation of bipartite network models with overlapping communities, in Knowledge and information systems, 
->p. 1-29, 2019, doi: https://doi.org/10.1007/s10115-019-01411-9
+>for the generation of bipartite network models with overlapping communities, in Knowledge and information systems, 62,
+>p. 1641-1669, 2019, doi: https://doi.org/10.1007/s10115-019-01411-9
 
 ~~~~~{.bib}
 @article{valejo2019benchmarking,
@@ -224,8 +224,8 @@ If not, see http://www.gnu.org/licenses/.
     title = {A benchmarking tool for the generation of bipartite network models with overlapping communities},
     journal = {Knowledge and information systems},
     year = {2019},
-    pages = {1-29},
-    doi = {https://doi.org/10.1007/s10115-019-01411-9}
+    pages = {1641-1669},
+    volume = {62}
 }
 ~~~~~
 
