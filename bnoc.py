@@ -3,7 +3,6 @@
 
 """
 BNOC (Benchmarking weighted bipartite, k-partite or heterogeneous network with overlapping community structures)
-==========================
 
 Copyright (C) 2017 Alan Valejo <alanvalejo@gmail.com> All rights reserved
 Copyright (C) 2017 Luzia Romanetto <luziaromanetto@gmail.com> All rights reserved
@@ -33,9 +32,13 @@ see http://www.gnu.org/licenses/.
 
 Giving credit to the author by citing the papers [1]
 
-.. [1] Valejo, Alan and Goes, F. and Romanetto, L. M. and Oliveira, Maria C. F. and Lopes, A. A., A benchmarking tool
+[1] Valejo, Alan and Goes, F. and Romanetto, L. M. and Oliveira, Maria C. F. and Lopes, A. A., A benchmarking tool
 for the generation of bipartite network models with overlapping communities, in Knowledge and information systems,
 p. 1-29, 2019 doi: https://doi.org/10.1007/s10115-019-01411-9
+
+Warning: The original implementation (i.e. paper version [1]) is deprecated. This software is a new version, more robust
+and fast. There may be divergences between this version and the original algorithm. If you looking for the original
+version used in the paper don't hesitate to contact the authors.
 """
 
 import random
@@ -79,6 +82,13 @@ class bnoc(object):  # BNOC app
 
         self.timing = Timing(['Snippet', 'Time [m]', 'Time [s]'])
         with self.timing.timeit_context_add('Pre-processing'):
+
+            self.matrices = []
+            self.membership = []
+            self.unique_comms = []
+            self.cover = []
+            self.overlap = []
+
             # Setup parse options command line
             current_path = os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
             parser = args.setup_parser(current_path + '/args/bnoc.json')
@@ -398,7 +408,6 @@ class bnoc(object):  # BNOC app
             self.create_vertices_and_communities()
             self.create_cover()
             self.select_overlapping_vertices()
-            self.matrices = []
             for index, e in enumerate(self.options.schema):
                 matrix = self.create_biadj_matrix(e[0], e[1], self.options.dispersion[index], self.options.mu[index])
                 if self.options.noise[index] > 0.0:

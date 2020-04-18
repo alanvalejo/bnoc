@@ -3,7 +3,6 @@
 
 """
 Args
-==========================
 
 Copyright (C) 2017 Alan Valejo <alanvalejo@gmail.com> All rights reserved
 
@@ -20,7 +19,7 @@ either version 3 of the License, or (at your option) any later version. See the 
 details. You should have received a copy of the GNU General Public License along with this program. If not,
 see http://www.gnu.org/licenses/.
 
-Giving credit to the author by citing the papers
+Giving credit to the author by citing the papers.
 """
 
 import argparse
@@ -53,7 +52,7 @@ def setup_parser(filename):
 
 	parser = argparse.ArgumentParser(description=descriptions)
 	parser._action_groups.pop()
-	parser.register("type", "bool", lambda v: v.lower() == "true")
+	parser.register("type", "bool", str2bool)
 	required = parser.add_argument_group('required arguments')
 	optional = parser.add_argument_group('optional arguments')
 
@@ -93,19 +92,19 @@ def update_json(options):
 
 def check_output(options, output_default='out'):
 
-	if options.directory is None:
-		options.directory = os.path.dirname(os.path.abspath(options.input)) + '/'
+	if options.output_directory is None:
+		options.output_directory = os.path.dirname(os.path.abspath(options.input)) + '/'
 	else:
-		if not os.path.exists(options.directory):
-			os.makedirs(options.directory)
-	if not options.directory.endswith('/'):
-		options.directory += '/'
+		if not os.path.exists(options.output_directory):
+			os.makedirs(options.output_directory)
+	if not options.output_directory.endswith('/'):
+		options.output_directory += '/'
 	if hasattr(options, 'input'):
 		output_default, options.extension = os.path.splitext(os.path.basename(options.input))
 	if options.output is None:
-		options.output = options.directory + output_default
+		options.output = options.output_directory + output_default
 	else:
-		options.output = options.directory + options.output
+		options.output = options.output_directory + options.output
 	if hasattr(options, 'unique_key') and options.unique_key:
 		now = datetime.now()
-		options.output = options.directory + options.output + '_' + now.strftime('%Y%m%d%H%M%S%f')
+		options.output = options.output_directory + options.output + '_' + now.strftime('%Y%m%d%H%M%S%f')

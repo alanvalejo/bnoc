@@ -1,5 +1,5 @@
 {
-	"directory": "output",
+	"output_directory": "output",
 	"output": "bipartite-1",
 	"vertices": [
 		150,

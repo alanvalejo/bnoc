@@ -3,7 +3,6 @@
 
 """
 Timing
-==========================
 
 Copyright (C) 2017 Alan Valejo <alanvalejo@gmail.com> All rights reserved
 
