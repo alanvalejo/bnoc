@@ -85,7 +85,7 @@
 		, "required": false
 		, "dest": "x"
 		, "type": "int"
-		, "nargs": "?"
+		, "nargs": "+"
 		, "action": "store"
 		, "default": 0
 		, "help": "number of vertices from V1 that participate of overlaping"
@@ -95,7 +95,7 @@
 		, "required": false
 		, "dest": "y"
 		, "type": "int"
-		, "nargs": "?"
+		, "nargs": "+"
 		, "action": "store"
 		, "default": 0
 		, "help": "number of vertices from V2 that participate of overlaping"
@@ -105,7 +105,7 @@
 		, "required": false
 		, "dest": "z"
 		, "type": "int"
-		, "nargs": "?"
+		, "nargs": "+"
 		, "action": "store"
 		, "default": 1
 		, "help": "number of vertices of overlapping communities"

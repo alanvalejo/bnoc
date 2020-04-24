@@ -181,6 +181,18 @@ Writing files is tested by exercising the script mode described in the *Usage* s
 Created objects should probably be better tested, as directions of Bnoc usage.
 File I/O can be tested by e.g. appropriatelly replacing the `bnoc.open` function.
 
+**Release History**
+
+- 0.1.0
+    - The first proper release
+- 0.0.1
+    - Work in progress
+
+**Contributing**
+
+- Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
+- Please make sure to update tests as appropriate.
+
 **Known Bugs**
 
 - Please contact the author for problems and bug report.

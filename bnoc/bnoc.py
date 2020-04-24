@@ -64,8 +64,8 @@ __credits__ = ['Alan Valejo', 'Luzia Romanetto', 'Fabiana Góes', 'Maria Cristin
 __homepage__ = 'https://github.com/alanvalejo/bnoc'
 __license__ = 'GNU.GPL.v3'
 __docformat__ = 'markdown en'
-__version__ = '0.2.1'
-__date__ = '2018-08-08'
+__version__ = '0.1.0'
+__date__ = '2020-04-25'
 
 global max_itr
 max_itr = 1000
