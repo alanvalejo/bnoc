@@ -19,7 +19,7 @@ either version 3 of the License, or (at your option) any later version. See the 
 details. You should have received a copy of the GNU General Public License along with this program. If not,
 see http://www.gnu.org/licenses/.
 
-Giving credit to the author by citing the papers
+Giving credit to the author by citing the papers.
 """
 
 import time
@@ -68,20 +68,20 @@ class Timing(object):
 		format_str = '{:>' + str(len(max_row) + 1) + '}'
 		row_format = format_str * (len(self.header))
 		print(row_format.format(*self.header))
-		for row, iten in zip(self.rows, self.elapsed_set):
-			print(row_format.format(row, *iten))
+		for row, item in zip(self.rows, self.elapsed_set):
+			print(row_format.format(row, *item))
 
 	def save_csv(self, output):
-		with open(output, 'wb') as csvfile:
+		with open(output, 'w+') as csvfile:
 			writer = csv.writer(csvfile, delimiter=',', quotechar='|', quoting=csv.QUOTE_MINIMAL)
 			writer.writerow(self.header)
-			for row, iten in zip(self.rows, self.elapsed_set):
-				writer.writerow([row] + iten)
+			for row, item in zip(self.rows, self.elapsed_set):
+				writer.writerow([row] + item)
 
 	def save_json(self, output):
 		dictionary = dict(zip(self.rows, self.elapsed_set))
 		dictionary['header'] = self.header
-		with open(output, 'wb') as jsonfile:
+		with open(output, 'w+') as jsonfile:
 			json.dump(dictionary, jsonfile, indent=4)
 
 	def get_array(self):
