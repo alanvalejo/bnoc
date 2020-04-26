@@ -1,5 +1,5 @@
 {
-	"output_directory": "output",
+	"output_directory": "../output",
 	"output": "heterogeneous",
 	"vertices": [
 		15,

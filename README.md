@@ -125,10 +125,26 @@ A heterogeneous network with k=3 layers and no overlapping.
 
 ![](img/heterogeneous.png)
 
+**Notes**
+
+A graph is called disconnected if it has more than one component, i.e. if it is not connected. Following this concept,
+consider two observations:
+
+1. Dispersion (`d` and `m` parameters) controls the number of edges in the network based on the number of vertices.
+Large networks, with tens of thousands of vertices, can be connected with a low dispersion, e.g., d = 0.3.
+In contrast, networks with a few hundred vertices need a higher dispersion to be connected, e.g., d = 0.6. The number
+of communities need be considered too. E.g., a network with 1,000 vertices and 100 communities can have a low number 
+of valid edges, since edges between communities is unlikely. Therefore, in this scenario, the graph needs a higher
+dispersion to be connected.
+
+2. The noise (`n` parameter) depends on the number of edges in the network. E.g., n = 0.01 is low and easy if applied
+in a small network with a few hundreds or thousands of edges and vertices. In contrast, n = 0.01 is high and hard if 
+applied in a large network, with tens of thousands of vertices.
+
 **Scalability**
 
 BNOC can generate large-scale bipartite networks with tens or even hundreds of thousands of vertices and hundreds of 
-millions of edges in a timely manner. See the article for details about complexity and scalability.
+millions of edges in a timely manner. See the original article [1] for details about complexity and scalability.
 
 Important, save the output files in text format is slow. It is recommended save the result with numpy `.npy` object, 
 see [numpy.save](https://docs.scipy.org/doc/numpy-1.15.1/reference/generated/numpy.save.html) for details.
