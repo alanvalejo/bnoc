@@ -1,276 +1,276 @@
 {
-	"descriptions": "BNOC (Benchmarking weighted bipartite network with overlapping community structures)"
-	, "dir": {
-		"long": "directory"
-		, "required": false
-		, "dest": "directory"
-		, "type": "str"
-		, "nargs": "?"
-		, "action": "store"
-		, "default": null
-		, "help": "directory of FILE if it is not current directory"
-	}
-	, "out": {
-		"long": "output"
-		, "required": false
-		, "dest": "output"
-		, "type": "str"
-		, "nargs": "?"
-		, "action": "store"
-		, "default": null
-		, "help": "output file name"
-	}
-	, "cnf": {
-		"long": "conf"
-		, "required": false
-		, "dest": "conf"
-		, "type": "str"
-		, "nargs": "?"
-		, "action": "store"
-		, "default": null
-		, "help": "config file name (check repo https://github.com/alanvalejo/bnoc for example files)"
-	}
-	, "v": {
-		"long": "vertices"
-		, "required": false
-		, "dest": "vertices"
-		, "type": "int"
-		, "nargs": "+"
-		, "action": "store"
-		, "default": [10, 10]
-		, "help": "number of vertices for each layer"
-	}
-	, "d": {
-		"long": "dispersion"
-		, "required": false
-		, "dest": "dispersion"
-		, "type": "float"
-		, "nargs": "?"
-		, "action": "store"
-		, "default": 0.4
-		, "help": "dispersion of gamma mixing distribution"
-	}
-	, "m": {
-		"long": "mu"
-		, "required": false
-		, "dest": "mu"
-		, "type": "float"
-		, "nargs": "?"
-		, "action": "store"
-		, "default": 0.4
-		, "help": "dispersion or range of wieght values"
-	}
-	, "c": {
-		"long": "communities"
-		, "required": false
-		, "dest": "communities"
-		, "type": "int"
-		, "nargs": "+"
-		, "action": "store"
-		, "default": [2, 2]
-		, "help": "number of communities"
-	}
-	, "n": {
-		"long": "noise"
-		, "required": false
-		, "dest": "noise"
-		, "type": "float"
-		, "nargs": "?"
-		, "action": "store"
-		, "default": 0.0
-		, "help": "noise"
-	}
-	, "x": {
-		"long": "x"
-		, "required": false
-		, "dest": "x"
-		, "type": "int"
-		, "nargs": "+"
-		, "action": "store"
-		, "default": 0
-		, "help": "number of vertices from V1 that participate of overlaping"
-	}
-	, "y": {
-		"long": "y"
-		, "required": false
-		, "dest": "y"
-		, "type": "int"
-		, "nargs": "+"
-		, "action": "store"
-		, "default": 0
-		, "help": "number of vertices from V2 that participate of overlaping"
-	}
-	, "z": {
-		"long": "z"
-		, "required": false
-		, "dest": "z"
-		, "type": "int"
-		, "nargs": "+"
-		, "action": "store"
-		, "default": 1
-		, "help": "number of vertices of overlapping communities"
-	}
-	, "o": {
-		"long": "output_objects"
-		, "required": false
-		, "dest": "output_objects"
-		, "action": "store_true"
-		, "help": "return python objects dictionary and don't write files"
-	}
-	, "p": {
-		"long": "p"
-		, "required": false
-		, "dest": "p"
-		, "type": "float"
-		, "nargs": "+"
-		, "action": "store"
-		, "default": null
-		, "help": "probability of vertices in each community for each layer"
-	}
-	, "e": {
-		"long": "schema"
-		, "required": false
-		, "dest": "schema"
-		, "type": "int"
-		, "nargs": "+"
-		, "action": "store"
-		, "default": null
-		, "help": "connections type"
-	}
-	, "b": {
-		"long": "balanced"
-		, "required": false
-		, "dest": "balanced"
-		, "action": "store_true"
-		, "default": false
-		, "help": "boolean balancing flag that suppresses -p parameter"
-	}
-	, "u": {
-		"long": "unweighted"
-		, "required": false
-		, "dest": "unweighted"
-		, "action": "store_true"
-		, "default": false
-		, "help": "unweighted networks"
-	}
-	, "no": {
-		"long": "normalize"
-		, "required": false
-		, "dest": "normalize"
-		, "action": "store_true"
-		, "default": false
-		, "help": "scale input vectors individually to unit norm (vector length)"
-	}
-	, "hd": {
-		"long": "hard"
-		, "required": false
-		, "dest": "hard"
-		, "action": "store_true"
-		, "default": false
-		, "help": "hard noise"
-	}
-	, "sn": {
-		"long": "save_ncol"
-		, "required": false
-		, "dest": "save_ncol"
-		, "action": "store_true"
-		, "default": false
-		, "help": "save ncol"
-	}
-	, "onpy": {
-		"long": "output_npy"
-		, "required": false
-		, "dest": "output_npy"
-		, "action": "store_true"
-		, "default": false
-		, "help": "save output in npy format"
-	}
-	, "otext": {
-		"long": "output_text"
-		, "required": false
-		, "dest": "output_text"
-		, "action": "store_true"
-		, "default": false
-		, "help": "save output in text format"
-	}
-	, "sa": {
-		"long": "save_arff"
-		, "required": false
-		, "dest": "save_arff"
-		, "action": "store_true"
-		, "default": false
-		, "help": "save ncol"
-	}
-	, "sgml": {
-		"long": "save_gml"
-		, "required": false
-		, "dest": "save_gml"
-		, "action": "store_true"
-		, "default": false
-		, "help": "save gml file"
-	}
-	, "sc": {
-		"long": "save_cover"
-		, "required": false
-		, "dest": "save_cover"
-		, "action": "store_true"
-		, "default": false
-		, "help": "save cover file"
-	}
-	, "sm": {
-		"long": "save_membership"
-		, "required": false
-		, "dest": "save_membership"
-		, "action": "store_true"
-		, "default": false
-		, "help": "save membership file"
-	}
-	, "so": {
-		"long": "save_overlap"
-		, "required": false
-		, "dest": "save_overlap"
-		, "action": "store_true"
-		, "default": false
-		, "help": "save overlap file"
-	}
-	, "stp": {
-		"long": "save_type"
-		, "required": false
-		, "dest": "save_type"
-		, "action": "store_true"
-		, "default": false
-		, "help": "save type file"
-	}
-	, "st": {
-		"long": "show_timing"
-		, "required": false
-		, "dest": "show_timing"
-		, "action": "store_true"
-		, "default": false
-		, "help": "show timing"
-	}
-	, "tcsv": {
-		"long": "save_timing_csv"
-		, "required": false
-		, "dest": "save_timing_csv"
-		, "action": "store_true"
-		, "default": false
-		, "help": "save timing in csv"
-	}
-	, "tjson": {
-		"long": "save_timing_json"
-		, "required": false
-		, "dest": "save_timing_json"
-		, "action": "store_true"
-		, "default": false
-		, "help": "save timing in csv"
-	}
-	, "unq": {
-		"long": "unique_key"
-		, "required": false
-		, "dest": "unique_key"
-		, "action": "store_true"
-		, "default": false
-		, "help": "output date and time as unique_key"
+	"descriptions": "BNOC (Benchmarking weighted bipartite network with overlapping community structures)",
+	"dir": {
+		"long": "directory",
+		"required": false,
+		"dest": "directory",
+		"type": "str",
+		"nargs": "?",
+		"action": "store",
+		"default": null,
+		"help": "directory of FILE if it is not current directory"
+	},
+	"out": {
+		"long": "output",
+		"required": false,
+		"dest": "output",
+		"type": "str",
+		"nargs": "?",
+		"action": "store",
+		"default": null,
+		"help": "output file name"
+	},
+	"cnf": {
+		"long": "conf",
+		"required": false,
+		"dest": "conf",
+		"type": "str",
+		"nargs": "?",
+		"action": "store",
+		"default": null,
+		"help": "config file name (check repo https://github.com/alanvalejo/bnoc for example files)"
+	},
+	"v": {
+		"long": "vertices",
+		"required": false,
+		"dest": "vertices",
+		"type": "int",
+		"nargs": "+",
+		"action": "store",
+		"default": [10, 10],
+		"help": "number of vertices for each layer"
+	},
+	"d": {
+		"long": "dispersion",
+		"required": false,
+		"dest": "dispersion",
+		"type": "float",
+		"nargs": "?",
+		"action": "store",
+		"default": 0.4,
+		"help": "dispersion of gamma mixing distribution"
+	},
+	"m": {
+		"long": "mu",
+		"required": false,
+		"dest": "mu",
+		"type": "float",
+		"nargs": "?",
+		"action": "store",
+		"default": 0.4,
+		"help": "dispersion or range of wieght values"
+	},
+	"c": {
+		"long": "communities",
+		"required": false,
+		"dest": "communities",
+		"type": "int",
+		"nargs": "+",
+		"action": "store",
+		"default": [2, 2],
+		"help": "number of communities"
+	},
+	"n": {
+		"long": "noise",
+		"required": false,
+		"dest": "noise",
+		"type": "float",
+		"nargs": "?",
+		"action": "store",
+		"default": 0.0,
+		"help": "noise"
+	},
+	"x": {
+		"long": "x",
+		"required": false,
+		"dest": "x",
+		"type": "int",
+		"nargs": "+",
+		"action": "store",
+		"default": 0,
+		"help": "number of vertices from V1 that participate of overlaping"
+	},
+	"y": {
+		"long": "y",
+		"required": false,
+		"dest": "y",
+		"type": "int",
+		"nargs": "+",
+		"action": "store",
+		"default": 0,
+		"help": "number of vertices from V2 that participate of overlaping"
+	},
+	"z": {
+		"long": "z",
+		"required": false,
+		"dest": "z",
+		"type": "int",
+		"nargs": "+",
+		"action": "store",
+		"default": 1,
+		"help": "number of vertices of overlapping communities"
+	},
+	"o": {
+		"long": "output_objects",
+		"required": false,
+		"dest": "output_objects",
+		"action": "store_true",
+		"help": "return python objects dictionary and don't write files"
+	},
+	"p": {
+		"long": "p",
+		"required": false,
+		"dest": "p",
+		"type": "float",
+		"nargs": "+",
+		"action": "store",
+		"default": null,
+		"help": "probability of vertices in each community for each layer"
+	},
+	"e": {
+		"long": "schema",
+		"required": false,
+		"dest": "schema",
+		"type": "int",
+		"nargs": "+",
+		"action": "store",
+		"default": null,
+		"help": "connections type"
+	},
+	"b": {
+		"long": "balanced",
+		"required": false,
+		"dest": "balanced",
+		"action": "store_true",
+		"default": false,
+		"help": "boolean balancing flag that suppresses -p parameter"
+	},
+	"u": {
+		"long": "unweighted",
+		"required": false,
+		"dest": "unweighted",
+		"action": "store_true",
+		"default": false,
+		"help": "unweighted networks"
+	},
+	"no": {
+		"long": "normalize",
+		"required": false,
+		"dest": "normalize",
+		"action": "store_true",
+		"default": false,
+		"help": "scale input vectors individually to unit norm (vector length)"
+	},
+	"hd": {
+		"long": "hard",
+		"required": false,
+		"dest": "hard",
+		"action": "store_true",
+		"default": false,
+		"help": "hard noise"
+	},
+	"sn": {
+		"long": "save_ncol",
+		"required": false,
+		"dest": "save_ncol",
+		"action": "store_true",
+		"default": false,
+		"help": "save ncol"
+	},
+	"onpy": {
+		"long": "output_npy",
+		"required": false,
+		"dest": "output_npy",
+		"action": "store_true",
+		"default": false,
+		"help": "save output in npy format"
+	},
+	"otext": {
+		"long": "output_text",
+		"required": false,
+		"dest": "output_text",
+		"action": "store_true",
+		"default": false,
+		"help": "save output in text format"
+	},
+	"sa": {
+		"long": "save_arff",
+		"required": false,
+		"dest": "save_arff",
+		"action": "store_true",
+		"default": false,
+		"help": "save ncol"
+	},
+	"sgml": {
+		"long": "save_gml",
+		"required": false,
+		"dest": "save_gml",
+		"action": "store_true",
+		"default": false,
+		"help": "save gml file"
+	},
+	"sc": {
+		"long": "save_cover",
+		"required": false,
+		"dest": "save_cover",
+		"action": "store_true",
+		"default": false,
+		"help": "save cover file"
+	},
+	"sm": {
+		"long": "save_membership",
+		"required": false,
+		"dest": "save_membership",
+		"action": "store_true",
+		"default": false,
+		"help": "save membership file"
+	},
+	"so": {
+		"long": "save_overlap",
+		"required": false,
+		"dest": "save_overlap",
+		"action": "store_true",
+		"default": false,
+		"help": "save overlap file"
+	},
+	"stp": {
+		"long": "save_type",
+		"required": false,
+		"dest": "save_type",
+		"action": "store_true",
+		"default": false,
+		"help": "save type file"
+	},
+	"st": {
+		"long": "show_timing",
+		"required": false,
+		"dest": "show_timing",
+		"action": "store_true",
+		"default": false,
+		"help": "show timing"
+	},
+	"tcsv": {
+		"long": "save_timing_csv",
+		"required": false,
+		"dest": "save_timing_csv",
+		"action": "store_true",
+		"default": false,
+		"help": "save timing in csv"
+	},
+	"tjson": {
+		"long": "save_timing_json",
+		"required": false,
+		"dest": "save_timing_json",
+		"action": "store_true",
+		"default": false,
+		"help": "save timing in csv"
+	},
+	"unq": {
+		"long": "unique_key",
+		"required": false,
+		"dest": "unique_key",
+		"action": "store_true",
+		"default": false,
+		"help": "output date and time as unique_key"
 	}
 }
