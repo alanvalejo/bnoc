@@ -4,7 +4,7 @@
 """
 Timing
 
-Copyright (C) 2017 Alan Valejo <alanvalejo@gmail.com> All rights reserved
+Copyright (C) 2020 Alan Valejo <alanvalejo@gmail.com> All rights reserved
 
 This program comes with ABSOLUTELY NO WARRANTY. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS
 WITH YOU.
@@ -36,7 +36,7 @@ __homepage__ = 'https://www.alanvalejo.com.br'
 __license__ = 'GNU.GPL.v3'
 __docformat__ = 'markdown en'
 __version__ = '0.1'
-__date__ = '2019-08-08'
+__date__ = '2020-05-05'
 
 class Timing(object):
 	"""

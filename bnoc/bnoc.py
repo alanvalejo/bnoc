@@ -4,17 +4,17 @@
 """
 BNOC (Benchmarking weighted bipartite, k-partite or heterogeneous network with overlapping community structures)
 
-Copyright (C) 2017 Alan Valejo <alanvalejo@gmail.com> All rights reserved
-Copyright (C) 2017 Luzia Romanetto <luziaromanetto@gmail.com> All rights reserved
-Copyright (C) 2017 Fabiana Góes <fabii.goes@gmail.com> All rights reserved
+Copyright (C) 2020 Alan Valejo <alanvalejo@gmail.com> All rights reserved
+Copyright (C) 2020 Luzia Romanetto <luziaromanetto@gmail.com> All rights reserved
+Copyright (C) 2020 Fabiana Góes <fabii.goes@gmail.com> All rights reserved
 
 BNOC is a tool for synthesizing bipartite, k-partite and heterogeneous network models with varied features
 representative of properties from real networks. Multiple input parameters can be manipulated to create networks of
 varying sizes and with distinct community patterns in terms of number, size, balance, edge distribution intra- and
 inter-communities, degree of overlapping and cohesion, and degree of noise in the connection patterns.
 
-The original implementation (paper version) is deprecated. This software is a new version, more robust and fast.
-I.e., there may be divergences between this version and the original algorithm. If you looking for the original
+Warning: The original implementation (i.e. paper version [1]) is deprecated. This software is a new version, more robust
+and fast. There may be divergences between this version and the original algorithm. If you looking for the original
 version used in the paper don't hesitate to contact the authors.
 
 This program comes with ABSOLUTELY NO WARRANTY. THE ENTIRE RISK AS TO THE QUALITY AND PERFORMANCE OF THE PROGRAM IS
@@ -35,10 +35,6 @@ Giving credit to the author by citing the papers [1]
 [1] Valejo, Alan and Goes, F. and Romanetto, L. M. and Oliveira, Maria C. F. and Lopes, A. A., A benchmarking tool
 for the generation of bipartite network models with overlapping communities, in Knowledge and information systems,
 p. 1-29, 2019 doi: https://doi.org/10.1007/s10115-019-01411-9
-
-Warning: The original implementation (i.e. paper version [1]) is deprecated. This software is a new version, more robust
-and fast. There may be divergences between this version and the original algorithm. If you looking for the original
-version used in the paper don't hesitate to contact the authors.
 """
 
 import random
@@ -175,19 +171,23 @@ class bnoc(object):  # BNOC app
             matrix[matrix > 0] = Y
 
         # Adding a fraction of intra-community edges
-        num_samples = numpy.count_nonzero(matrix == 0)
-        Z = [False]
-        while not any(Z):  # while all elements are 'False'
-            # Z = numpy.random.rand(num_samples) < noise
-            Z = numpy.random.uniform(0.0, 1.0, num_samples) < noise
-        Y = matrix[matrix == 0]
-        _mean = numpy.mean(removed_weights, dtype=numpy.float64)
-        # _mean = numpy.median(removed_weights)
-        if not self.options.hard:
-            removed_weights = [_mean] * len(removed_weights)
-        removed_weights = list(removed_weights) + ([0] * (numpy.count_nonzero(Z) - len(removed_weights)))
-        Y[Z] = numpy.random.choice(removed_weights, numpy.count_nonzero(Z))
-        matrix[matrix == 0] = Y
+        # num_samples = numpy.count_nonzero(matrix == 0)
+        # Z = [False]
+        # while not any(Z):  # while all elements are 'False'
+        #     # Z = numpy.random.rand(num_samples) < noise
+        #     Z = numpy.random.uniform(0.0, 1.0, num_samples) < noise
+
+        # Y = matrix[matrix == 0]
+        # if not self.options.hard:
+        #     _mean = numpy.mean(removed_weights, dtype=numpy.float64)
+        #     removed_weights = [_mean] * len(removed_weights)
+
+        # removed_weights = list(removed_weights) + ([0] * (numpy.count_nonzero(Z) - len(removed_weights)))
+        # Y[Z] = numpy.random.choice(removed_weights, numpy.count_nonzero(Z))
+
+        num_samples = len(matrix[matrix == 0]) - len(removed_weights)
+        removed_weights = list(removed_weights) + ([0] * num_samples)
+        matrix[matrix == 0] = numpy.random.choice(removed_weights, len(removed_weights))
 
         return matrix
 
@@ -271,6 +271,7 @@ class bnoc(object):  # BNOC app
                     matrix[u - self.start_end[l0][0], v - self.start_end[l1][0]] = 1
 
         # Make a large negative binomial distribution
+        numpy.set_printoptions(threshold=sys.maxsize)
         num_samples = numpy.count_nonzero(matrix)
         # prob = dispersion / (dispersion + mu)
         # prob = ((mu + dispersion * mu ** 2) - mu) / (mu + dispersion * mu ** 2)
@@ -298,7 +299,7 @@ class bnoc(object):  # BNOC app
         if self.options.save_overlap:
             for layer in range(self.layers):
                 if len(self.overlap[layer]) > 0:
-                    with open(output + '.overrow', 'w+') as f:
+                    with open(output + '-layer-' + str(layer) + '.overlap', 'w+') as f:
                         writer = csv.writer(f, delimiter=' ')
                         writer.writerow(self.overlap[layer])
 

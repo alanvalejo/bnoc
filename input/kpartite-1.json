@@ -1,6 +1,6 @@
 {
 	"output_directory": "../output",
-	"output": "kpartite",
+	"output": "kpartite-1",
 	"vertices": [
 		15,
 		15,
