@@ -226,7 +226,7 @@ File I/O can be tested by e.g. appropriatelly replacing the `bnoc.open` function
 **Contact**
 
 - Alan Valejo
-- alanvalejo@gmail.com.br
+- alanvalejo@gmail.com
 - www.alanvalejo.com.br
 - Postdoctoral research fellow at the University of São Paulo (USP), Brazil
 
