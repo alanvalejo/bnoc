@@ -1,16 +1,16 @@
 {
-	"output_directory": "../output",
+	"output_directory": "output",
 	"output": "bipartite-3",
 	"vertices": [
-		1550,
-		1550
+		150,
+		150
 	],
 	"schema": [
 		[0,1]
 	],
 	"communities": [
-		15,
-		15
+		4,
+		4
 	],
 	"x": [
 		0,
@@ -22,13 +22,13 @@
 	],
 	"p": null,
 	"dispersion":[
-		0.4
+		0.8
 	],
 	"mu": [
-		0.4
+		0.8
 	],
 	"noise": [
-		0.03
+		0.1
 	],
 	"balanced": true,
 	"unweighted": false,

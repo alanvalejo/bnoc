@@ -55,8 +55,7 @@ from models.timing import Timing
 __maintainer__ = 'Alan Valejo'
 __email__ = 'alanvalejo@gmail.com, luziaromanetto@gmail.com'
 __author__ = 'Alan Valejo, Luzia Romanetto, Fabiana Góes'
-__credits__ = ['Alan Valejo', 'Luzia Romanetto', 'Fabiana Góes', 'Maria Cristina Ferreira de Oliveira',
-               'Alneu de Andrade Lopes']
+__credits__ = ['Alan Valejo', 'Luzia Romanetto', 'Fabiana Góes', 'Maria Cristina Ferreira de Oliveira', 'Alneu de Andrade Lopes']
 __homepage__ = 'https://github.com/alanvalejo/bnoc'
 __license__ = 'GNU.GPL.v3'
 __docformat__ = 'markdown en'
@@ -65,7 +64,6 @@ __date__ = '2020-04-25'
 
 global max_itr
 max_itr = 1000
-
 
 class bnoc(object):  # BNOC app
 
@@ -253,7 +251,7 @@ class bnoc(object):  # BNOC app
                         self.cover[layer][comm].append(vertex)
 
     def create_biadj_matrix(self, l0, l1, dispersion, mu):
-        """ Create an unweighted adjacenty matrix with community structure. """
+        """ Create an unweighted adjacent matrix with community structure. """
 
         # Create a empty biparte
         matrix = numpy.zeros((self.options.vertices[l0], self.options.vertices[l1]), dtype=numpy.float64)
